@@ -628,7 +628,44 @@
       <dependency>
         <groupId>com.oracle</groupId>
         <artifactId>ojdbc6</artifactId>
-        <version>11.2.0.2</version>
+        <version>[11.2.0.2,11.2.0.2.0]</version>
+        <!-- <version>11.2.0.3.0</version> -->
+      </dependency>
+      <!-- Oracle GeoRaster -->
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>sdoapi</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>sdotype</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>sdogr</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>sdoutl</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>ojdbc6</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>xdb</artifactId>
+        <version>11.2.0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>xmlparserv2_grit</artifactId>
+        <version>11.2.0.3.0</version>
       </dependency>
       <!-- Batik -->
       <dependency>
@@ -959,8 +996,10 @@
     <module>deegree-services</module>
     <module>deegree-themes</module>
     <module>deegree-tools</module>
-    <module>deegree-workspaces</module>
+    <!--
+	<module>deegree-workspaces</module>
     <module>deegree-spring</module>
+	-->
   </modules>
 
   <profiles>

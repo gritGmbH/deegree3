@@ -24,9 +24,14 @@
     </repository>
   </repositories>
 
-  <modules>
-    <module>deegree-coveragestore-oracle-georaster</module>
-  </modules>
-
+  <profiles>
+    <profile>
+      <id>oracle</id>
+      <modules>
+        <module>deegree-coveragestore-oracle-georaster</module>
+      </modules>
+    </profile>
+  </profiles>
+  
 </project>
 
