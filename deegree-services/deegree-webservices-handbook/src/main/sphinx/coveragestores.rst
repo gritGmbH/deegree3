@@ -104,3 +104,71 @@ The following example shows, how to configure a coverage pyramid:
 
 * A Pyramid contains a PyramidFile parameter with the path to the pyramid as its value.
 * A Pyramid contains a CRS parameter describing the source CRS of the pyramid as EPSG code.
+
+----------------
+Oracle GeoRaster
+----------------
+
+A <OracleGeoraster> is used to wrap a connection information to a singe Oracle GeoRaster element inside a Oracle Database.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Prerequisities for Oracle GeoRaster
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Oracle JDBC Driver
+
+  * ojdbc6-11.2.0.3.0.jar
+
+* Oracle Spatial and GeoRaster Driver 
+
+  * sdoapi-11.2.0.3.0.jar
+  * sdogr-11.2.0.3.0.jar
+  * sdotype-11.2.0.3.0.jar
+  * sdoutl-11.2.0.3.0.jar
+
+  * Oracle Dependencies
+
+  * xdb-11.2.0.3.0.jar
+  * xmlparserv2_grit-11.2.0.3.0.jar
+  
+    * Without META-INF/services entries to prevent that xmlparserv2 becomes the default
+
+The following example shows, how to configure a GeoRaster coverage:
+
+.. code-block:: xml
+
+  <OracleGeoraster
+    configVersion="3.1.0"
+    xmlns="http://www.deegree.org/datasource/coverage/oraclegeoraster"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.deegree.org/datasource/coverage/oraclegeoraster http://schemas.deegree.org/datasource/coverage/oraclegeoraster/3.1.0/oraclegeoraster.xsd">
+    <JDBCConnId>oracle</JDBCConnId>
+    <StorageCRS>EPSG:31468</StorageCRS>
+    <!--  optional -->
+    <!--
+    <StorageBBox>
+      <LowerCorner>4508000.0 5652000.0</LowerCorner>
+      <UpperCorner>4518000.0 5642000.0</UpperCorner>
+    </StorageBBox>
+    -->
+    
+    <Raster id="17" >
+      <Table>RASTER</Table>
+      <RDTTable>RASTER_RDT</RDTTable>
+      <Column>IMAGE</Column>
+    </Raster>
+  
+    <!-- optional: specify single band(gray scale)-->
+    <!--
+    <Bands>
+      <Single>1</Single>
+    </Bands>
+    -->
+    
+    <!-- optional: specify RGB (3 bands) -->
+    <!--
+    <Bands>
+      <RGB red="1" green="2" blue="3" />
+    </Bands>
+    -->
+  </OracleGeoraster>
