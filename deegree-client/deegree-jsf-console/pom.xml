@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.deegree</groupId>
     <artifactId>deegree-client</artifactId>
-    <version>3.4-pre11-SNAPSHOT</version>
+    <version>3.4-pre13-SNAPSHOT</version>
   </parent>
   <repositories>
     <repository>
@@ -181,6 +181,11 @@
       <artifactId>deegree-tilestore-remotewmts</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.deegree</groupId>
+      <artifactId>deegree-connectionprovider-datasource</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
     <dependency>
       <groupId>org.deegree</groupId>
       <artifactId>deegree-jsf-core</artifactId>
