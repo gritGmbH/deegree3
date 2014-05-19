@@ -75,6 +75,7 @@ public class OracleGeorasterBuilder implements ResourceBuilder<Coverage> {
                 }
                 return mrr;
             } else {
+                rasterLvl0.setMetadata( metadata );
                 return rasterLvl0;
             }
 		} catch ( Exception e ) {

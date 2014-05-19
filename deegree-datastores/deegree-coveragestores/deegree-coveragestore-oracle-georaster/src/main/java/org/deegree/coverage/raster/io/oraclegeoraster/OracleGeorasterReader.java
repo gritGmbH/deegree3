@@ -247,6 +247,13 @@ public class OracleGeorasterReader implements RasterReader {
             JGeoRaster jGeoRaster = getGeoraster( connProvider.getConnection() );
             JGeoRasterMeta jGeoRasterMeta = jGeoRaster.getMetadataObject();
 
+            int ultRow = jGeoRasterMeta.getRasterInfo().getULTCoordinate( 1 ).intValue();
+            int ultCol = jGeoRasterMeta.getRasterInfo().getULTCoordinate( 0 ).intValue();
+            if ( ultRow != 0 || ultCol != 0 ) {
+                LOG.info( "Raster {}.{}:{} ULTCoordinate: row {} col {} currently ignored",
+                          new Object[] { this.rasterTable, this.rasterColumn, this.rasterId, ultRow, ultCol } );
+            }
+            
             int lvl0Width = jGeoRasterMeta.getRasterInfo().getDimensionSize( 1 ).intValue();
             int lvl0Height = jGeoRasterMeta.getRasterInfo().getDimensionSize( 0 ).intValue();
 
