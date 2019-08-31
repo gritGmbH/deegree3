@@ -45,7 +45,10 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -53,6 +56,9 @@ import javax.xml.validation.SchemaFactory;
 import org.deegree.commons.utils.net.DURL;
 import org.deegree.workspace.Workspace;
 import org.slf4j.Logger;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  * 
@@ -72,7 +78,9 @@ public class JAXBUtils {
         Object o = null;
         Unmarshaller u = getUnmarshaller( jaxbPackage, schemaLocation, workspace );
         try {
-            o = u.unmarshal( input );
+            InputSource src = new InputSource( input );
+            o = u.unmarshal( new SAXSource( getXMLReader(), src ) );
+            // o = u.unmarshal( input );
         } catch ( JAXBException e ) {
             LOG.error( "Error in configuration file: " + e.getLocalizedMessage() );
             // whyever they use the linked exception here...
@@ -174,4 +182,29 @@ public class JAXBUtils {
         return result;
     }
 
+    /*
+     * @see javax.xml.bind.helpers.AbstractUnmarshallerImpl.getXMLReader()
+     */
+
+    protected static XMLReader getXMLReader()
+                            throws JAXBException {
+        XMLReader reader;
+        try {
+            SAXParserFactory parserFactory;
+            parserFactory = SAXParserFactory.newInstance();
+            parserFactory.setNamespaceAware( true );
+            // there is no point in asking a validation because
+            // there is no guarantee that the document will come with
+            // a proper schemaLocation.
+            parserFactory.setValidating( false );
+            reader = parserFactory.newSAXParser().getXMLReader();
+        } catch ( ParserConfigurationException e ) {
+            throw new JAXBException( e );
+        } catch ( SAXException e ) {
+            throw new JAXBException( e );
+        }
+
+        // inject schema warnings, without reading multiple times
+        return SchemaVersionCheckerXmlReader.wrap( reader );
+    }
 }
