@@ -4,7 +4,7 @@
   xmlns:xplan="http://www.xplanung.de/xplangml/4/0" 
   elementFormDefault="qualified" targetNamespace="http://www.xplanung.de/xplangml/4/0" version="4.0">
   <annotation>
-    <documentation>Dies Paket enthält alle Klassen des spezifischen Modells für die Regionalplanung in Rheinland-Pfalz.</documentation>
+    <documentation>Dies Paket enthï¿½lt alle Klassen des spezifischen Modells fï¿½r die Regionalplanung in Rheinland-Pfalz.</documentation>
   </annotation>
   
   <include schemaLocation="XPlanGML_Regionalplanung_Kernmodell.xsd"/>
@@ -12,7 +12,7 @@
   <!--XML Schema document created by ShapeChange-->
   <element name="RP_RLP_Rohstoffsicherung" substitutionGroup="xplan:RP_Rohstoffsicherung" type="xplan:RP_RLP_RohstoffsicherungType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete zur Rohstoffsicherung nach Abschnitt 4.3.8 der Hinheise und Erläuterungen zur Umsetzung des LEP IV.&#13;
+      <documentation>Vorrang- und Vorbehaltsgebiete zur Rohstoffsicherung nach Abschnitt 4.3.8 der Hinheise und Erlï¿½uterungen zur Umsetzung des LEP IV.&#13;
 </documentation>
     </annotation>
   </element>
@@ -27,7 +27,7 @@
   </complexType>
   <element name="RP_RLP_FreizeitErholung" substitutionGroup="xplan:RP_FreizeitErholung" type="xplan:RP_RLP_FreizeitErholungType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für Erholung, Fremdenverkehr/Tourismus.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r Erholung, Fremdenverkehr/Tourismus.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_FreizeitErholungType">
@@ -39,7 +39,7 @@
   </complexType>
   <element name="RP_RLP_VorbHochwasserschutz" substitutionGroup="xplan:RP_VorbHochwasserschutz" type="xplan:RP_RLP_VorbHochwasserschutzType">
     <annotation>
-      <documentation>Vorrang und Vorbehaltsgebiete für den Hochwasserschutz.</documentation>
+      <documentation>Vorrang und Vorbehaltsgebiete fï¿½r den Hochwasserschutz.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_VorbHochwasserschutzType">
@@ -53,7 +53,7 @@
   </complexType>
   <simpleType name="RP_RLP_RaumkategorieTypenType">
     <annotation>
-      <documentation>Kategorisierung spezieller Rheinland-Pfälzischer Raumkategorien</documentation>
+      <documentation>Kategorisierung spezieller Rheinland-Pfï¿½lzischer Raumkategorien</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="1000">
@@ -89,7 +89,7 @@
   </complexType>
   <element name="RP_RLP_Forstwirtschaft" substitutionGroup="xplan:RP_Forstwirtschaft" type="xplan:RP_RLP_ForstwirtschaftType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für die Forstwirtschaft.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r die Forstwirtschaft.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_ForstwirtschaftType">
@@ -115,7 +115,7 @@
   </simpleType>
   <element name="RP_RLP_Siedlungszaesur" substitutionGroup="xplan:RP_GruenzugGruenzaesur" type="xplan:RP_RLP_SiedlungszaesurType">
     <annotation>
-      <documentation>Siedlungszäsur als Ziel oder Grundsatz der Raumordnung .</documentation>
+      <documentation>Siedlungszï¿½sur als Ziel oder Grundsatz der Raumordnung .</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_SiedlungszaesurType">
@@ -151,7 +151,7 @@
   </complexType>
   <element name="RP_RLP_Ressourcenschutz" substitutionGroup="xplan:RP_SonstigerFreiraumstruktur" type="xplan:RP_RLP_RessourcenschutzType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für Ressourcenschutz. Das Attribut "typ" ist nur für Pläne nach LEP III relevant.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r Ressourcenschutz. Das Attribut "typ" ist nur fï¿½r Plï¿½ne nach LEP III relevant.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_RessourcenschutzType">
@@ -173,7 +173,7 @@
   </simpleType>
   <element name="RP_RLP_Sonderflaeche" substitutionGroup="xplan:RP_GenerischesObjekt" type="xplan:RP_RLP_SonderflaecheType">
     <annotation>
-      <documentation>Sonderflächen in Rheinland-Pfalz (Bestand).</documentation>
+      <documentation>Sonderflï¿½chen in Rheinland-Pfalz (Bestand).</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_SonderflaecheType">
@@ -187,7 +187,7 @@
   </complexType>
   <element name="RP_RLP_Gewaesser" substitutionGroup="xplan:RP_Gewaesser" type="xplan:RP_RLP_GewaesserType">
     <annotation>
-      <documentation>Geswässerfläche Rheinland-Pfalz (Bestand).</documentation>
+      <documentation>Geswï¿½sserflï¿½che Rheinland-Pfalz (Bestand).</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_GewaesserType">
@@ -199,7 +199,7 @@
   </complexType>
   <simpleType name="RP_RLP_RessourcenschutzTypenType">
     <annotation>
-      <documentation>Kategorisierung schützenswerter Ressourcen.</documentation>
+      <documentation>Kategorisierung schï¿½tzenswerter Ressourcen.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="1000"/>
@@ -211,7 +211,7 @@
   </simpleType>
   <element name="RP_RLP_Gruenzaesur" substitutionGroup="xplan:RP_GruenzugGruenzaesur" type="xplan:RP_RLP_GruenzaesurType">
     <annotation>
-      <documentation>Grünzäsur (Flächen- und Liniendarstellung) als Ziel oder Grundsatz der Raumordnung.</documentation>
+      <documentation>Grï¿½nzï¿½sur (Flï¿½chen- und Liniendarstellung) als Ziel oder Grundsatz der Raumordnung.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_GruenzaesurType">
@@ -235,7 +235,7 @@
   </complexType>
   <element name="RP_RLP_SonstigeFreiflaeche" substitutionGroup="xplan:RP_GenerischesObjekt" type="xplan:RP_RLP_SonstigeFreiflaecheType">
     <annotation>
-      <documentation>Sonstige Freifläche Rheinland-Pfalz (Bestand)</documentation>
+      <documentation>Sonstige Freiflï¿½che Rheinland-Pfalz (Bestand)</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_SonstigeFreiflaecheType">
@@ -247,7 +247,7 @@
   </complexType>
   <element name="RP_RLP_Gruenzug" substitutionGroup="xplan:RP_GruenzugGruenzaesur" type="xplan:RP_RLP_GruenzugType">
     <annotation>
-      <documentation>Regionaler Grünzug.</documentation>
+      <documentation>Regionaler Grï¿½nzug.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_GruenzugType">
@@ -259,7 +259,7 @@
   </complexType>
   <element name="RP_RLP_Landwirtschaft" substitutionGroup="xplan:RP_Landwirtschaft" type="xplan:RP_RLP_LandwirtschaftType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für Landwirtschaft. Die Bestandsinformation "Sonderkultur Weinbau" muss mit "rechtsstand = Bestehend (2000)" und "kultur = SonderkulturWeinbau (1000)" abgebildet werden.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r Landwirtschaft. Die Bestandsinformation "Sonderkultur Weinbau" muss mit "rechtsstand = Bestehend (2000)" und "kultur = SonderkulturWeinbau (1000)" abgebildet werden.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_LandwirtschaftType">
@@ -273,7 +273,7 @@
   </complexType>
   <element name="RP_RLP_Windenergienutzung" substitutionGroup="xplan:RP_Windenergienutzung" type="xplan:RP_RLP_WindenergienutzungType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für die Windenergienutzung. Das Attribut "typ" ist nur für Pläne nach LEP III relevant.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r die Windenergienutzung. Das Attribut "typ" ist nur fï¿½r Plï¿½ne nach LEP III relevant.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_WindenergienutzungType">
@@ -287,7 +287,7 @@
   </complexType>
   <element name="RP_RLP_Welterbestaette" substitutionGroup="xplan:RP_SonstigerFreiraumstruktur" type="xplan:RP_RLP_WelterbestaetteType">
     <annotation>
-      <documentation>Welterbestätte (Flächen- und Liniendarstellung).</documentation>
+      <documentation>Welterbestï¿½tte (Flï¿½chen- und Liniendarstellung).</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_WelterbestaetteType">
@@ -308,7 +308,7 @@
         <sequence>
           <element minOccurs="0" name="netzTyp" type="xplan:RP_RLP_SiedlungsNetzTypenType">
             <annotation>
-              <documentation>Unterscheidung nach "Grundnetz" und "Ergänzungsnetz". Anmerkung: Diese Unterscheidung wird im LEP IV nicht mehr vorgenommen.</documentation>
+              <documentation>Unterscheidung nach "Grundnetz" und "Ergï¿½nzungsnetz". Anmerkung: Diese Unterscheidung wird im LEP IV nicht mehr vorgenommen.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="gemeindeFunktion" type="xplan:RP_GemeindefunktionenType">
@@ -336,7 +336,7 @@
   </simpleType>
   <element name="RP_RLP_Laermschutzzone" substitutionGroup="xplan:RP_Laermschutzbereich" type="xplan:RP_RLP_LaermschutzzoneType">
     <annotation>
-      <documentation>Lärmschutzzone</documentation>
+      <documentation>Lï¿½rmschutzzone</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_LaermschutzzoneType">
@@ -348,7 +348,7 @@
   </complexType>
   <element name="RP_RLP_Wasserschutz" substitutionGroup="xplan:RP_Wasserschutz" type="xplan:RP_RLP_WasserschutzType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete für Grund- und Oberflächenwasserschutz, Talsperren.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete fï¿½r Grund- und Oberflï¿½chenwasserschutz, Talsperren.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_WasserschutzType">
@@ -376,7 +376,7 @@
   </complexType>
   <simpleType name="RP_RLP_BiotopverbundTypenType">
     <annotation>
-      <documentation>Kategorisierung von Biotopverbünden.</documentation>
+      <documentation>Kategorisierung von Biotopverbï¿½nden.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="1000"/>
@@ -403,7 +403,7 @@
   </simpleType>
   <simpleType name="RP_RLP_SiedlungsNetzTypenType">
     <annotation>
-      <documentation>Kategorisierung von Siedlungsnetz-Typen (entfällt im LEP 4).</documentation>
+      <documentation>Kategorisierung von Siedlungsnetz-Typen (entfï¿½llt im LEP 4).</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="1000"/>
@@ -421,7 +421,7 @@
   </simpleType>
   <simpleType name="RP_RLP_RohstoffLageType">
     <annotation>
-      <documentation>Kategorisierung von obertägigen und untertägigen Abbaustätten.</documentation>
+      <documentation>Kategorisierung von obertï¿½gigen und untertï¿½gigen Abbaustï¿½tten.</documentation>
     </annotation>
     <restriction base="string">
       <enumeration value="1000"/>
@@ -460,7 +460,7 @@
   </complexType>
   <element name="RP_RLP_ArtenBiotopschutz" substitutionGroup="xplan:RP_SonstigerFreiraumstruktur" type="xplan:RP_RLP_ArtenBiotopschutzType">
     <annotation>
-      <documentation>Landesweite bzw. regionale Biotopverbünde.</documentation>
+      <documentation>Landesweite bzw. regionale Biotopverbï¿½nde.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_ArtenBiotopschutzType">
@@ -474,7 +474,7 @@
   </complexType>
   <element name="RP_RLP_Rohstoffabbau" substitutionGroup="xplan:RP_Rohstoffsicherung" type="xplan:RP_RLP_RohstoffabbauType">
     <annotation>
-      <documentation>Vorrang- und Vorbehaltsgebiete zum Rohstoffabbau.  Das Arrtibut "genehmigt" ist nur für Pläne nach dem LEP III relevant.</documentation>
+      <documentation>Vorrang- und Vorbehaltsgebiete zum Rohstoffabbau.  Das Arrtibut "genehmigt" ist nur fï¿½r Plï¿½ne nach dem LEP III relevant.</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_RohstoffabbauType">
@@ -489,7 +489,7 @@
   </complexType>
   <element name="RP_RLP_SonstigeWaldflaeche" substitutionGroup="xplan:RP_GenerischesObjekt" type="xplan:RP_RLP_SonstigeWaldflaecheType">
     <annotation>
-      <documentation>Sonstige Waldfläche Rheinland-Pfalz (Bestand).</documentation>
+      <documentation>Sonstige Waldflï¿½che Rheinland-Pfalz (Bestand).</documentation>
     </annotation>
   </element>
   <complexType name="RP_RLP_SonstigeWaldflaecheType">

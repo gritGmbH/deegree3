@@ -5,7 +5,7 @@
   xmlns:xplan="http://www.xplanung.de/xplangml/4/0" 
   elementFormDefault="qualified" targetNamespace="http://www.xplanung.de/xplangml/4/0" version="4.0">
   <annotation>
-    <documentation>Dies Paket enthält alle Klassen des spezifischen Modells für die Regionalplanung in NRW.</documentation>
+    <documentation>Dies Paket enthï¿½lt alle Klassen des spezifischen Modells fï¿½r die Regionalplanung in NRW.</documentation>
   </annotation>
   
   <include schemaLocation="XPlanGML_Regionalplanung_Kernmodell.xsd"/>
@@ -14,7 +14,7 @@
   <!--XML Schema document created by ShapeChange-->
   <element name="RP_NRW_AufschuettungAblagerung" substitutionGroup="xplan:RP_SonstigerFreiraumstruktur" type="xplan:RP_NRW_AufschuettungAblagerungType">
     <annotation>
-      <documentation>Aufschüttungen/Ablagerungen (2ea)</documentation>
+      <documentation>Aufschï¿½ttungen/Ablagerungen (2ea)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_AufschuettungAblagerungType">
@@ -29,7 +29,7 @@
   </complexType>
   <element name="RP_NRW_OberflaechennaheBodenschaetze" substitutionGroup="xplan:RP_Rohstoffsicherung" type="xplan:RP_NRW_OberflaechennaheBodenschaetzeType">
     <annotation>
-      <documentation>oberflächennahe Bodenschätze (2eb)</documentation>
+      <documentation>oberflï¿½chennahe Bodenschï¿½tze (2eb)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_OberflaechennaheBodenschaetzeType">
@@ -176,7 +176,7 @@
   </simpleType>
   <element name="RP_NRW_GIB" substitutionGroup="xplan:RP_GemeindeFunktionSiedlungsentwicklung" type="xplan:RP_NRW_GIBType">
     <annotation>
-      <documentation>Bereich für gewerbliche und industrielle Nutzungen (GIB) (1d)</documentation>
+      <documentation>Bereich fï¿½r gewerbliche und industrielle Nutzungen (GIB) (1d)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_GIBType">
@@ -250,7 +250,7 @@
   </simpleType>
   <element name="RP_NRW_Ueberschwemmungsbereich" substitutionGroup="xplan:RP_VorbHochwasserschutz" type="xplan:RP_NRW_UeberschwemmungsbereichType">
     <annotation>
-      <documentation>Überschwemmungsbereiche (2de)</documentation>
+      <documentation>ï¿½berschwemmungsbereiche (2de)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_UeberschwemmungsbereichType">
@@ -325,7 +325,7 @@
   </complexType>
   <element name="RP_NRW_GrundwasserGewaesserschutz" substitutionGroup="xplan:RP_Wasserschutz" type="xplan:RP_NRW_GrundwasserGewaesserschutzType">
     <annotation>
-      <documentation>Grundwasser- und Gewässerschutz (2dd)</documentation>
+      <documentation>Grundwasser- und Gewï¿½sserschutz (2dd)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_GrundwasserGewaesserschutzType">
@@ -399,7 +399,7 @@
   </complexType>
   <element name="RP_NRW_OberflaechenGewaesser" substitutionGroup="xplan:RP_NaturLandschaft" type="xplan:RP_NRW_OberflaechenGewaesserType">
     <annotation>
-      <documentation>Oberflächengewässer (2c)</documentation>
+      <documentation>Oberflï¿½chengewï¿½sser (2c)</documentation>
     </annotation>
   </element>
   <complexType name="RP_NRW_OberflaechenGewaesserType">

@@ -5,7 +5,7 @@
   xmlns:xplan="http://www.xplanung.de/xplangml/4/0" 
   elementFormDefault="qualified" targetNamespace="http://www.xplanung.de/xplangml/4/0" version="4.0">
   <annotation>
-    <documentation>Dies Paket enthält alle Klassen des Anwendungsschemas Landschaftsplanung NRW.</documentation>
+    <documentation>Dies Paket enthï¿½lt alle Klassen des Anwendungsschemas Landschaftsplanung NRW.</documentation>
   </annotation>
   
   <include schemaLocation="XPlanGML_Landschaftsplanung_Kernmodell.xsd"/>
@@ -39,7 +39,7 @@
   </complexType>
   <element name="LP_NRW_ForstlicheFestsetzung" substitutionGroup="xplan:LP_NutzungserfordernisRegelung" type="xplan:LP_NRW_ForstlicheFestsetzungType">
     <annotation>
-      <documentation>Forstliche Festsetzungen in Naturschutzgebieten und geschützten Landschaftsbestandteilen i.S.v. § 25 LG.</documentation>
+      <documentation>Forstliche Festsetzungen in Naturschutzgebieten und geschï¿½tzten Landschaftsbestandteilen i.S.v. ï¿½ 25 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_ForstlicheFestsetzungType">
@@ -55,7 +55,7 @@
   </complexType>
   <element name="LP_NRW_Brachflaeche" substitutionGroup="xplan:LP_NutzungserfordernisRegelung" type="xplan:LP_NRW_BrachflaecheType">
     <annotation>
-      <documentation>Brachfläche i.S.v. § 24 LG.</documentation>
+      <documentation>Brachflï¿½che i.S.v. ï¿½ 24 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_BrachflaecheType">
@@ -69,7 +69,7 @@
   </complexType>
   <element name="LP_NRW_TemporaererLandschaftsschutz" substitutionGroup="xplan:LP_Zwischennutzung" type="xplan:LP_NRW_TemporaererLandschaftsschutzType">
     <annotation>
-      <documentation>Temporärer Landschaftsschutz (bis zur baulichen Inanspruchnahme) gem. § 29 Abs. 3 LG.</documentation>
+      <documentation>Temporï¿½rer Landschaftsschutz (bis zur baulichen Inanspruchnahme) gem. ï¿½ 29 Abs. 3 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_TemporaererLandschaftsschutzType">
@@ -81,7 +81,7 @@
   </complexType>
   <element name="LP_NRW_Biotopschutz" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_BiotopschutzType">
     <annotation>
-      <documentation>Anlage, Widerherstellung oder Pflege naturnaher Lebensräume (Biotope) i.S.V. § 26 Abs. 2 Nr. 1 LG (6.1 Anlage 1 DVO-LG).</documentation>
+      <documentation>Anlage, Widerherstellung oder Pflege naturnaher Lebensrï¿½ume (Biotope) i.S.V. ï¿½ 26 Abs. 2 Nr. 1 LG (6.1 Anlage 1 DVO-LG).</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_BiotopschutzType">
@@ -93,7 +93,7 @@
   </complexType>
   <element name="LP_NRW_StrukturenElementeBesiedelterBereich" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_StrukturenElementeBesiedelterBereichType">
     <annotation>
-      <documentation>Pflege- und Entwicklungsmaßnahmen für im besiedelten Bereich vorhandene landschaftliche Strukturen und Elemente i.S.v. § 26 Abs. 2 Nr. 7.</documentation>
+      <documentation>Pflege- und Entwicklungsmaï¿½nahmen fï¿½r im besiedelten Bereich vorhandene landschaftliche Strukturen und Elemente i.S.v. ï¿½ 26 Abs. 2 Nr. 7.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_StrukturenElementeBesiedelterBereichType">
@@ -105,7 +105,7 @@
   </complexType>
   <element name="LP_NRW_VerpflichtungWRRL" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_VerpflichtungWRRLType">
     <annotation>
-      <documentation>Maßnahmen die Verpflichtungen der WRRL erfüllen i.S.v. § 26 Abs. 2 Nr. 3 LG.</documentation>
+      <documentation>Maï¿½nahmen die Verpflichtungen der WRRL erfï¿½llen i.S.v. ï¿½ 26 Abs. 2 Nr. 3 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_VerpflichtungWRRLType">
@@ -134,7 +134,7 @@
   </simpleType>
   <element name="LP_NRW_ElementeKulturlandschaft" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_ElementeKulturlandschaftType">
     <annotation>
-      <documentation>Pflege und Entwicklung von charakteristischen Elementen der Kulturlandschaft i.S.v. § 26 Abs. 2 Nr. 6 LG.</documentation>
+      <documentation>Pflege und Entwicklung von charakteristischen Elementen der Kulturlandschaft i.S.v. ï¿½ 26 Abs. 2 Nr. 6 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_ElementeKulturlandschaftType">
@@ -146,7 +146,7 @@
   </complexType>
   <element name="LP_NRW_PflegeAnpflanzung" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_PflegeAnpflanzungType">
     <annotation>
-      <documentation>Anlage, Pflege oder Anpflanzung ökologisch bedeutsamer/charakteristischer landschaftlicher Strukturen und Elemente i.S.V. § 26 Abs. 2 Nr. 2 LG.</documentation>
+      <documentation>Anlage, Pflege oder Anpflanzung ï¿½kologisch bedeutsamer/charakteristischer landschaftlicher Strukturen und Elemente i.S.V. ï¿½ 26 Abs. 2 Nr. 2 LG.</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_PflegeAnpflanzungType">
@@ -165,7 +165,7 @@
   </complexType>
   <element name="LP_NRW_HerrichtungGrundstueck" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_HerrichtungGrundstueckType">
     <annotation>
-      <documentation>Herrichtung von geschädigten oder nicht mehr genutzten Grundstücken i.S.v. § 26 Abs. 2 Nr. 4 LG</documentation>
+      <documentation>Herrichtung von geschï¿½digten oder nicht mehr genutzten Grundstï¿½cken i.S.v. ï¿½ 26 Abs. 2 Nr. 4 LG</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_HerrichtungGrundstueckType">
@@ -206,7 +206,7 @@
   </complexType>
   <element name="LP_NRW_PflegeLandschaftsbild" substitutionGroup="xplan:LP_SchutzPflegeEntwicklung" type="xplan:LP_NRW_PflegeLandschaftsbildType">
     <annotation>
-      <documentation>Pflegemaßnahmen zur Erhaltung oder Wiederherstellung des Landschaftsbildes i.S.v. § 26 Abs. 2 Nr. 5 LG (6.4 Anlage 1 DVO-LG).</documentation>
+      <documentation>Pflegemaï¿½nahmen zur Erhaltung oder Wiederherstellung des Landschaftsbildes i.S.v. ï¿½ 26 Abs. 2 Nr. 5 LG (6.4 Anlage 1 DVO-LG).</documentation>
     </annotation>
   </element>
   <complexType name="LP_NRW_PflegeLandschaftsbildType">
