@@ -62,7 +62,7 @@ public class SpringConnectionProviderProvider extends ConnectionProviderProvider
 
     private static final String CONFIG_NS = "http://www.deegree.org/spring/db";
 
-    static final URL CONFIG_SCHEMA = SpringConnectionProviderProvider.class.getResource( "/META-INF/schemas/spring/3.4.0/db.xsd" );
+    static final URL CONFIG_SCHEMA = SpringConnectionProviderProvider.class.getResource( "/META-INF/schemas/spring/db.xsd" );
 
     @Override
     public String getNamespace() {

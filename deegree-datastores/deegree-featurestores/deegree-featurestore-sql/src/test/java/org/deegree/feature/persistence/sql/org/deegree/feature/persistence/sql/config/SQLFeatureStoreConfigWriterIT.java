@@ -74,7 +74,7 @@ public class SQLFeatureStoreConfigWriterIT {
                             throws SAXException {
 
         URL schemaResource = SQLFeatureStoreConfigWriterIT.class.getResource(
-                                "/META-INF/schemas/datasource/feature/sql/3.4.0/sql.xsd" );
+                                "/META-INF/schemas/datasource/feature/sql/sql.xsd" );
         return SchemaFactory.w3cXmlSchemaFrom( schemaResource );
     }
 

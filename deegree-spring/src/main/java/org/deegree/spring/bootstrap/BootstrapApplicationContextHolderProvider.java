@@ -64,7 +64,7 @@ public class BootstrapApplicationContextHolderProvider extends ApplicationContex
 
     private static final String CONFIG_NS = "http://www.deegree.org/spring/bootstrap";
 
-    static final URL CONFIG_SCHEMA = BootstrapApplicationContextHolderProvider.class.getResource( "/META-INF/schemas/spring/3.4.0/bootstrap.xsd" );
+    static final URL CONFIG_SCHEMA = BootstrapApplicationContextHolderProvider.class.getResource( "/META-INF/schemas/spring/bootstrap.xsd" );
 
     @Override
     public String getNamespace() {

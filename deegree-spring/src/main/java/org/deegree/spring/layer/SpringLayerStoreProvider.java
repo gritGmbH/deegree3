@@ -63,7 +63,7 @@ public class SpringLayerStoreProvider extends LayerStoreProvider {
 
     private static final String CONFIG_NS = "http://www.deegree.org/spring/layer";
 
-    private static final URL CONFIG_SCHEMA = SpringLayerStoreProvider.class.getResource( "/META-INF/schemas/spring/3.4.0/layer.xsd" );
+    private static final URL CONFIG_SCHEMA = SpringLayerStoreProvider.class.getResource( "/META-INF/schemas/spring/layer.xsd" );
 
     private static final String CONFIG_JAXB_PACKAGE = "org.deegree.spring.layer.jaxb";
 

@@ -63,7 +63,7 @@ public class SpringOWSMetadataProviderProvider extends OWSMetadataProviderProvid
 
     private static final String CONFIG_NS = "http://www.deegree.org/spring/metadata";
 
-    private static final URL CONFIG_SCHEMA = SpringOWSMetadataProviderProvider.class.getResource( "/META-INF/schemas/spring/3.4.0/metadata.xsd" );
+    private static final URL CONFIG_SCHEMA = SpringOWSMetadataProviderProvider.class.getResource( "/META-INF/schemas/spring/metadata.xsd" );
 
     private static final String CONFIG_JAXB_PACKAGE = "org.deegree.spring.metadata.jaxb";
 
