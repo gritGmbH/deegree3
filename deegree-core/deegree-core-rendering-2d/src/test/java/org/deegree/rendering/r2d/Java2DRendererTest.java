@@ -55,11 +55,14 @@ import static org.deegree.style.styling.components.Stroke.LineJoin.MITRE;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -119,6 +122,19 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
             LOG.error( "Unknown error", e );
         } catch ( IOException e ) {
             LOG.error( "Unknown error", e );
+        }
+
+        // Load Fonts
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        for ( String fontName : List.of("/LiberationMono-Regular.ttf", "/LiberationSans-Regular.ttf")) {
+            try (InputStream is = Java2DRendererTest.class.getResourceAsStream( fontName )) {
+                Font f = Font.createFont( Font.TRUETYPE_FONT, is );
+                LOG.info("Loaded font with Name {} Font Name: {} Family Name: {}", f.getName(), f.getFontName(), f.getFontName() );
+                ge.registerFont( f );
+            } catch ( Exception ex ) {
+                LOG.error("Failed tor load Font {}: {}", fontName, ex.getMessage());
+                LOG.trace("Exception loading font", ex);
+            }
         }
     }
 
@@ -583,7 +599,6 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testTextStyling2()
                             throws Exception {
         BufferedImage img = new BufferedImage( 1000, 1000, TYPE_INT_ARGB );
@@ -611,7 +626,9 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
         TextStyling styling = new TextStyling();
         styling.linePlacement = new LinePlacement();
         styling.font.fontSize = 25;
-        styling.font.fontFamily.add( "Courier" );
+        //styling.font.fontFamily.add( "Courier" );
+        // Use layout compatible open source replacement
+        styling.font.fontFamily.add( "Liberation Mono" );
         r2d.render( lineStyle, curves.peek() );
         r.render( styling, text, curves.poll() );
         styling.linePlacement.repeat = true;
@@ -704,6 +721,8 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
         String text = "A b C - X Y Z";
         TextStyling styling = new TextStyling();
         styling.font.fontSize = 20;
+        styling.font.fontFamily.clear();
+        styling.font.fontFamily.add( "Liberation Sans" );
         styling.halo = new Halo();
         styling.halo.radius = 10;
         styling.halo.fill = new Fill();
@@ -739,6 +758,8 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
         String text = "A b C - X Y Z";
         TextStyling styling = new TextStyling();
         styling.font.fontSize = 20;
+        styling.font.fontFamily.clear();
+        styling.font.fontFamily.add( "Liberation Sans" );
         styling.halo = new Halo();
         styling.halo.radius = 10;
         styling.halo.fill = new Fill();
