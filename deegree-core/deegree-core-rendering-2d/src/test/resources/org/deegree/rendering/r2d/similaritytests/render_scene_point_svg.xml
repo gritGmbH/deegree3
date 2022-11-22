@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<FeatureTypeStyle xmlns="http://www.opengis.net/se"
+				  xmlns:ogc="http://www.opengis.net/ogc"
+				  xmlns:app="http://deegree.org/app"
+				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				  xmlns:xlink="http://www.w3.org/1999/xlink"
+				  xsi:schemaLocation="http://www.opengis.net/se https://schemas.opengis.net/se/1.1.0/FeatureStyle.xsd http://www.opengis.net/ogc https://schemas.opengis.net/filter/1.1.0/filter.xsd">
+
+	<Rule>
+		<PointSymbolizer>
+			<Graphic>
+				<Mark>
+					<WellKnownName>square</WellKnownName>
+					<Fill>
+						<SvgParameter name="fill-opacity">0.0</SvgParameter>
+					</Fill>
+					<Stroke>
+						<SvgParameter name="stroke">#F1EB9C</SvgParameter>
+					</Stroke>
+				</Mark>
+				<Size>
+					<ogc:PropertyName>app:value</ogc:PropertyName>
+				</Size>
+			</Graphic>
+		</PointSymbolizer>
+		<PointSymbolizer
+				uom="http://www.opengeospatial.org/se/units/pixel">
+			<Graphic>
+				<ExternalGraphic>
+					<OnlineResource xlink:href="./w100h200.svg" />
+					<Format>image/png</Format>
+				</ExternalGraphic>
+				<Size>
+					<ogc:PropertyName>app:value</ogc:PropertyName>
+				</Size>
+			</Graphic>
+		</PointSymbolizer>
+		<PointSymbolizer>
+			<Graphic>
+				<Mark>
+					<WellKnownName>square</WellKnownName>
+					<Fill>
+						<SvgParameter name="fill-opacity">0.0</SvgParameter>
+					</Fill>
+					<Stroke>
+						<SvgParameter name="stroke">#F1EB9C</SvgParameter>
+					</Stroke>
+				</Mark>
+				<Size>
+					<ogc:PropertyName>app:value</ogc:PropertyName>
+				</Size>
+				<Displacement>
+					<DisplacementX>0</DisplacementX>
+					<DisplacementY>-100</DisplacementY>
+				</Displacement>
+			</Graphic>
+		</PointSymbolizer>
+		<PointSymbolizer
+				uom="http://www.opengeospatial.org/se/units/pixel">
+			<Graphic>
+				<ExternalGraphic>
+					<OnlineResource xlink:href="./w200h100.svg" />
+					<Format>image/png</Format>
+				</ExternalGraphic>
+				<Size>
+					<ogc:PropertyName>app:value</ogc:PropertyName>
+				</Size>
+				<Displacement>
+					<DisplacementX>0</DisplacementX>
+					<DisplacementY>-100</DisplacementY>
+				</Displacement>
+			</Graphic>
+		</PointSymbolizer>
+	</Rule>
+</FeatureTypeStyle>

@@ -37,63 +37,29 @@
  ----------------------------------------------------------------------------*/
 package org.deegree.rendering.r2d;
 
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
-import static java.lang.System.currentTimeMillis;
-import static org.deegree.commons.utils.test.IntegrationTestUtils.isImageSimilar;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-import org.deegree.commons.utils.FileUtils;
-import org.deegree.commons.utils.Triple;
-import org.deegree.feature.Feature;
-import org.deegree.feature.FeatureCollection;
-import org.deegree.feature.types.DynamicAppSchema;
-import org.deegree.feature.xpath.TypedObjectNodeXPathEvaluator;
-import org.deegree.filter.XPathEvaluator;
+import org.deegree.commons.utils.TunableParameter;
 import org.deegree.filter.function.FunctionManager;
-import org.deegree.geometry.Envelope;
-import org.deegree.geometry.Geometry;
-import org.deegree.geometry.GeometryFactory;
-import org.deegree.geometry.points.Points;
-import org.deegree.geometry.standard.points.PackedPoints;
-import org.deegree.geometry.utils.GeometryUtils;
-import org.deegree.gml.GMLInputFactory;
-import org.deegree.gml.GMLStreamReader;
-import org.deegree.gml.GMLVersion;
-import org.deegree.gml.feature.GMLFeatureReader;
-import org.deegree.style.se.parser.SymbologyParser;
-import org.deegree.style.se.unevaluated.Style;
-import org.deegree.style.styling.Styling;
 import org.deegree.style.styling.mark.WellKnownNameManager;
 import org.deegree.workspace.Destroyable;
 import org.deegree.workspace.Workspace;
 import org.deegree.workspace.standard.DefaultWorkspace;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RunWith(Parameterized.class)
-public class RenderedStyleImageSimilarityTest extends AbstractRenderedStyleImageSimilarityTest {
+public class RenderedStyleImageSimilarityNonSquareTest extends AbstractRenderedStyleImageSimilarityTest {
 
-    private static final File TEST_DIR = new File( "src/test/resources/org/deegree/rendering/r2d/similaritytests" );
+    private static final File TEST_DIR = new File( "src/test/resources/org/deegree/rendering/r2d/similaritytests_non_square" );
 
-    private static final Logger LOG = LoggerFactory.getLogger( RenderedStyleImageSimilarityTest.class );
+    private static final Logger LOG = LoggerFactory.getLogger( RenderedStyleImageSimilarityNonSquareTest.class );
 
     private static Workspace ws = new DefaultWorkspace( TEST_DIR );
 
@@ -102,6 +68,8 @@ public class RenderedStyleImageSimilarityTest extends AbstractRenderedStyleImage
 
     @BeforeClass
     public static void runBefore() {
+        System.setProperty( "deegree.rendering.graphics.squared", "false" );
+        TunableParameter.resetCache();
         new WellKnownNameManager().init( ws );
         FunctionManager fm = new FunctionManager();
         fm.init( ws );
@@ -111,6 +79,9 @@ public class RenderedStyleImageSimilarityTest extends AbstractRenderedStyleImage
     @AfterClass
     public static void runAfter() {
         destroyableResources.forEach( da -> da.destroy( ws ) );
+
+        System.clearProperty( "deegree.rendering.graphics.squared");
+        TunableParameter.resetCache();
     }
 
     @Parameterized.Parameters(name = "{index}: {0}")
