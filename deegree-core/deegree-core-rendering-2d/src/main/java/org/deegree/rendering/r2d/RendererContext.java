@@ -85,7 +85,7 @@ public class RendererContext {
             clipper = new GeometryClipper( bbox, width );
         }
         uomCalculator = new UomCalculator( pixelSize, res );
-        fillRenderer = new Java2DFillRenderer( uomCalculator, graphics );
+        fillRenderer = new Java2DFillRenderer( uomCalculator, graphics, this );
         strokeRenderer = new Java2DStrokeRenderer( graphics, uomCalculator, fillRenderer, this );
         svgRenderer = new SvgRenderer();
         polygonRenderer = new PolygonRenderer( geomHelper, fillRenderer, strokeRenderer, graphics, renderer );

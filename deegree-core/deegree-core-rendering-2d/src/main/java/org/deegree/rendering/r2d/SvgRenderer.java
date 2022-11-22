@@ -42,12 +42,12 @@ package org.deegree.rendering.r2d;
 
 import static javax.media.jai.JAI.create;
 import static org.apache.batik.transcoder.SVGAbstractTranscoder.KEY_HEIGHT;
+import static org.apache.batik.transcoder.SVGAbstractTranscoder.KEY_MAX_WIDTH;
 import static org.apache.batik.transcoder.SVGAbstractTranscoder.KEY_WIDTH;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.deegree.commons.utils.math.MathUtils.round;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -62,16 +62,14 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
-import org.deegree.commons.utils.ComparablePair;
 import org.deegree.commons.utils.TunableParameter;
-import org.deegree.style.styling.components.Graphic;
 import org.slf4j.Logger;
 
 import com.sun.media.jai.codec.MemoryCacheSeekableStream;
 
 /**
  * Renders svg images onto buffered images.
- * 
+ *
  * @author <a href="mailto:schmitz@occamlabs.de">Andreas Schmitz</a>
  */
 class SvgRenderer {
@@ -79,6 +77,10 @@ class SvgRenderer {
     private static final Logger LOG = getLogger( SvgRenderer.class );
 
     private final int cacheSize = TunableParameter.get( "deegree.cache.svgrenderer", 256 );
+
+    private boolean strictSize = TunableParameter.get( "deegree.rendering.graphics.size.strict", false );
+
+    private boolean squareSize = TunableParameter.get("deegree.rendering.graphics.squared", true );
 
     final LinkedHashMap<String, BufferedImage> svgCache = new LinkedHashMap<>( cacheSize ) {
         private static final long serialVersionUID = -6847956873232942891L;
@@ -89,22 +91,33 @@ class SvgRenderer {
         }
     };
 
-    BufferedImage prepareSvg( Rectangle2D.Double rect, Graphic g ) {
+     BufferedImage prepareSvg( String imageURL, float size ) {
         BufferedImage img = null;
-        final String cacheKey = createCacheKey( g.imageURL, rect.width, rect.height );
+        final String cacheKey = createCacheKey( imageURL, size );
         if ( svgCache.containsKey( cacheKey ) ) {
             img = svgCache.get( cacheKey );
         } else {
             PNGTranscoder t = new PNGTranscoder();
 
-            if ( rect.width > 0.0d ) {
-                t.addTranscodingHint( KEY_WIDTH, new Float( rect.width ) );
-            }
-            if ( rect.height > 0.0d ) {
-                t.addTranscodingHint( KEY_HEIGHT, new Float( rect.height ) );
+            if ( size > 0.0d ) {
+                if ( strictSize ) {
+                    // only specify height, width will be calculated from aspect ration
+                    t.addTranscodingHint( KEY_HEIGHT, size );
+                } else if ( squareSize ) {
+                    // returns square image with the svg aligned top/left.
+                    t.addTranscodingHint( KEY_HEIGHT, size );
+                    t.addTranscodingHint( KEY_WIDTH, size );
+                } else {
+                    // returns image which is limited by width/height
+                    // NOTE:
+                    // This depends on org.apache.batik.transcoder.SVGAbstractTranscoder.setImageSize to first set
+                    // height and then limit width while keeping the aspect ratio
+                    t.addTranscodingHint( KEY_HEIGHT, size );
+                    t.addTranscodingHint( KEY_MAX_WIDTH, size );
+                }
             }
 
-            TranscoderInput input = new TranscoderInput( g.imageURL );
+            TranscoderInput input = new TranscoderInput( imageURL );
 
             // TODO improve performance by writing a custom transcoder output directly rendering on an image, or
             // even on the target graphics
@@ -121,9 +134,9 @@ class SvgRenderer {
                 img = rop.getAsBufferedImage();
                 svgCache.put( cacheKey, img );
             } catch ( TranscoderException e ) {
-                LOG.warn( "Could not rasterize svg '{}': {}", g.imageURL, e.getLocalizedMessage() );
+                LOG.warn( "Could not rasterize svg '{}': {}", imageURL, e.getLocalizedMessage() );
             } catch ( IOException e ) {
-                LOG.warn( "Could not rasterize svg '{}': {}", g.imageURL, e.getLocalizedMessage() );
+                LOG.warn( "Could not rasterize svg '{}': {}", imageURL, e.getLocalizedMessage() );
             } finally {
                 closeQuietly( out );
                 closeQuietly( in );
@@ -132,7 +145,7 @@ class SvgRenderer {
         return img;
     }
 
-    String createCacheKey( String url, double width, double height ) {
-        return String.format( "%s_%d_%d", url, round( width ), round( height ) );
+    String createCacheKey( String url, float size ) {
+        return String.format( "%s_%d", url, round( size ) );
     }
 }

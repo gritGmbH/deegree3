@@ -42,6 +42,8 @@ import static java.lang.Math.cos;
 import static java.lang.Math.max;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
+import static java.lang.Math.toRadians;
+import static org.deegree.commons.utils.math.MathUtils.isZero;
 import static org.deegree.cs.CRSUtils.EPSG_4326;
 import static org.deegree.cs.components.Axis.AO_EAST;
 import static org.deegree.cs.coordinatesystems.GeographicCRS.WGS84;
@@ -59,11 +61,13 @@ import org.deegree.commons.tom.ReferenceResolvingException;
 import org.deegree.commons.utils.DoublePair;
 import org.deegree.commons.utils.MapUtils;
 import org.deegree.commons.utils.Pair;
+import org.deegree.commons.utils.math.MathUtils;
 import org.deegree.cs.coordinatesystems.ICRS;
 import org.deegree.cs.exceptions.TransformationException;
 import org.deegree.cs.exceptions.UnknownCRSException;
 import org.deegree.geometry.Envelope;
 import org.deegree.geometry.GeometryTransformer;
+import org.deegree.style.styling.components.Graphic;
 import org.deegree.style.styling.components.Mark;
 import org.deegree.style.styling.components.UOM;
 import org.deegree.style.utils.ShapeHelper;
@@ -107,6 +111,37 @@ public class RenderHelper {
         }
         if ( mark.stroke != null ) {
             context.strokeRenderer.applyStroke( mark.stroke, uom, shape, 0, null );
+        }
+    }
+
+    public static void renderNonSquareMark( Graphic g, int size, UOM uom, RendererContext context, double x, double y ) {
+        if ( size == 0 ) {
+            LOG.debug( "Not rendering a symbol because the size is zero." );
+            return;
+        }
+        if ( g.mark.fill == null && g.mark.stroke == null ) {
+            LOG.debug( "Not rendering a symbol because no fill/stroke is available/configured." );
+            return;
+        }
+
+        Shape shape = getShapeFromMark( g.mark, size - 1, 0, false, 0,0, false );
+        Rectangle2D box = shape.getBounds2D();
+
+        double x0 = x - box.getWidth() * g.anchorPointX + context.uomCalculator.considerUOM( g.displacementX, uom );
+        double y0 = y - box.getHeight() * g.anchorPointY + context.uomCalculator.considerUOM( g.displacementY, uom );
+        AffineTransform t = new AffineTransform();
+        if (!isZero( g.rotation )){
+            t.rotate( toRadians( g.rotation), x0 + box.getWidth()/2, y0+ box.getHeight()/2 );
+        }
+        t.translate( x0, y0 );
+        shape = t.createTransformedShape( shape );
+
+        if ( g.mark.fill != null ) {
+            context.fillRenderer.applyFill( g.mark.fill, uom );
+            context.graphics.fill( shape );
+        }
+        if ( g.mark.stroke != null ) {
+            context.strokeRenderer.applyStroke( g.mark.stroke, uom, shape, 0, null );
         }
     }
 

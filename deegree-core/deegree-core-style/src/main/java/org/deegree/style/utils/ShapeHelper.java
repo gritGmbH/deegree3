@@ -156,7 +156,7 @@ public class ShapeHelper {
      * @deprecated {@link #getShapeFromMark(Mark, double, double, boolean, double, double)} or {@link #getShapeFromMarkForFill(Mark, double, double)}
      */
     public static Shape getShapeFromMark( Mark mark, double size, double rotation ) {
-        return getShapeFromMark( mark, size, rotation, false, -1, -1 );
+        return getShapeFromMark( mark, size, rotation, false, 0, 0 );
     }
 
     private static Shape getFontOrDefault(Mark mark, double size) {
@@ -204,7 +204,12 @@ public class ShapeHelper {
         return shape;
     }
 
+
     public static Shape getShapeFromMark( Mark mark, double size, double rotation, boolean translate, double x, double y ) {
+        return getShapeFromMark(mark, size, rotation, translate, x, y, true);
+    }
+
+    public static Shape getShapeFromMark( Mark mark, double size, double rotation, boolean translate, double x, double y, boolean square ) {
         Shape shape;
 
         if ( mark.shape != null ) {
@@ -219,14 +224,16 @@ public class ShapeHelper {
         AffineTransform t = AffineTransform.getScaleInstance( fac, fac );
         t.translate( -box.getMinX(), -box.getMinY() );
 
-        // correct non-square shapes
-        double w = box.getWidth();
-        double h = box.getHeight();
+        if ( square ) {
+            // correct non-square shapes
+            double w = box.getWidth();
+            double h = box.getHeight();
 
-        if ( w < h ) {
-            t.translate( -( w - h ) / 2, 0 );
-        } else {
-            t.translate( 0, -( h - w ) / 2 );
+            if ( w < h ) {
+                t.translate( -( w - h ) / 2, 0 );
+            } else {
+                t.translate( 0, -( h - w ) / 2 );
+            }
         }
 
         shape = t.createTransformedShape( shape );

@@ -126,12 +126,13 @@ class Java2DStrokeRenderer {
             transed = new OffsetStroke( poff, null, type ).createStrokedShape( transed );
         }
 
-        Rectangle2D.Double rect = fillRenderer.getGraphicBounds( stroke.stroke, 0,0, uom );
+        Rectangle2D.Double rect = null;
         BufferedImage img = null;
         Shape[] shapes;
         if ( stroke.stroke.image != null ) {
             shapes = new Shape[0];
             img = stroke.stroke.image;
+            rect = fillRenderer.getGraphicBounds( stroke.stroke, 0,0, uom );
         } else if ( stroke.stroke.imageURL != null && SVG_AS_MARK ) {
             // Render SVG like mark
             Shape shape = getShapeFromSvg( stroke.stroke.imageURL, uomCalculator.considerUOM( stroke.stroke.size, uom ),
@@ -139,7 +140,7 @@ class Java2DStrokeRenderer {
             shapes = new Shape[]{ shape };
         } else if ( stroke.stroke.imageURL != null ) {
             // render SVG like image
-            img = rendererContext.svgRenderer.prepareSvg( rect, stroke.stroke );
+            img = rendererContext.svgRenderer.prepareSvg( stroke.stroke.imageURL, (float) strokeSizeUOM );
             if ( img == null ) {
                 // fallback to regular rendering if no image can be produced
                 return false;
@@ -164,6 +165,9 @@ class Java2DStrokeRenderer {
 
 
         if ( img != null ) {
+            if ( rect == null) {
+                rect = fillRenderer.getImageBounds( img, stroke.stroke, 0,0, uom );
+            }
             s.renderStroke( transed, graphics, img, stroke.stroke, rect );
             return true;
         } else if ( stroke.stroke.image == null && stroke.stroke.imageURL != null ) {

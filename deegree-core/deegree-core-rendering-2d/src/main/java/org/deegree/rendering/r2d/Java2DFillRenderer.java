@@ -40,6 +40,7 @@
  ----------------------------------------------------------------------------*/
 package org.deegree.rendering.r2d;
 
+import org.deegree.commons.utils.TunableParameter;
 import org.deegree.style.styling.components.Fill;
 import org.deegree.style.styling.components.Graphic;
 import org.deegree.style.styling.components.UOM;
@@ -67,13 +68,23 @@ class Java2DFillRenderer {
 
     private Graphics2D graphics;
 
-    Java2DFillRenderer( UomCalculator uomCalculator, Graphics2D graphics ) {
+    private RendererContext rendererContext;
+
+    /**
+     * Derive undefined image size Strictly according to OGC
+     *
+     * SLD 02-070 Cap. 11.3.2 / SE 05-077r4 Cap. 11.3.2
+     */
+    private boolean strictSize = TunableParameter.get( "deegree.rendering.graphics.size.strict", false );
+
+    Java2DFillRenderer( UomCalculator uomCalculator, Graphics2D graphics, RendererContext rendererContext ) {
         this.uomCalculator = uomCalculator;
         this.graphics = graphics;
+        this.rendererContext = rendererContext;
     }
 
     void applyGraphicFill( Graphic graphic, UOM uom ) {
-        Rectangle2D.Double graphicBounds = getGraphicBounds( graphic, 0, 0, uom );
+        Rectangle2D.Double graphicBounds;
         BufferedImage img;
 
         if ( graphic.image == null ) {
@@ -82,16 +93,14 @@ class Java2DFillRenderer {
             if ( graphic.imageURL == null ) {
                 img = renderMarkForFill( graphic.mark, graphic.size < 0 ? 6 : size, uom, graphic.rotation,
                                          graphics != null ? graphics.getRenderingHints() : null );
-                graphicBounds = getImageBounds( img, graphic, 0, 0, uom );
             } else {
-                img = new BufferedImage( size, size, TYPE_INT_ARGB );
-                Graphics2D g = img.createGraphics();
-                Java2DRenderer renderer = new Java2DRenderer( g );
-                img = renderer.rendererContext.svgRenderer.prepareSvg( graphicBounds, graphic );
-                g.dispose();
+                img = rendererContext.svgRenderer.prepareSvg( graphic.imageURL, graphic.size < 0 ? 6 : size );
+
             }
+            graphicBounds = getImageBounds( img, graphic, 0, 0, uom );
         } else {
             img = graphic.image;
+            graphicBounds = getGraphicBounds( graphic, 0, 0, uom );
         }
         graphics.setPaint( new TexturePaint( img, graphicBounds ) );
     }
@@ -111,8 +120,8 @@ class Java2DFillRenderer {
 
     Rectangle2D.Double getImageBounds( BufferedImage image, Graphic graphic, double x, double y, UOM uom ) {
         double width, height;
-        width = image.getWidth();
-        height = image.getHeight();
+        width = image == null ? 6 : image.getWidth();
+        height = image == null ? 6 : image.getHeight();
         double x0 = x - width * graphic.anchorPointX + uomCalculator.considerUOM( graphic.displacementX, uom );
         double y0 = y - height * graphic.anchorPointY + uomCalculator.considerUOM( graphic.displacementY, uom );
 
@@ -122,7 +131,7 @@ class Java2DFillRenderer {
     Rectangle2D.Double getGraphicBounds( Graphic graphic, double x, double y, UOM uom ) {
         double width, height;
         if ( graphic.image != null ) {
-            double max = Math.max( graphic.image.getWidth(), graphic.image.getHeight() );
+            double max = Math.max( strictSize ? 0 : graphic.image.getWidth(), graphic.image.getHeight() );
             double fac = graphic.size / max;
             width = fac * graphic.image.getWidth();
             height = fac * graphic.image.getHeight();
@@ -133,7 +142,7 @@ class Java2DFillRenderer {
         width = uomCalculator.considerUOM( width, uom );
         height = uomCalculator.considerUOM( height, uom );
 
-        if ( width < 0 ) {
+        if ( height < 0 ) {
             if ( graphic.image == null ) {
                 width = 6;
                 height = 6;

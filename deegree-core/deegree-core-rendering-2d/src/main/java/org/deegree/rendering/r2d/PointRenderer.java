@@ -45,12 +45,14 @@ import static java.lang.Math.toRadians;
 import static org.deegree.commons.utils.math.MathUtils.isZero;
 import static org.deegree.commons.utils.math.MathUtils.round;
 import static org.deegree.rendering.r2d.RenderHelper.renderMark;
+import static org.deegree.rendering.r2d.RenderHelper.renderNonSquareMark;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import org.deegree.commons.utils.TunableParameter;
 import org.deegree.style.styling.PointStyling;
 import org.deegree.style.styling.components.Graphic;
 
@@ -68,6 +70,8 @@ class PointRenderer {
 
     private RendererContext rendererContext;
 
+    private boolean squareSize = TunableParameter.get( "deegree.rendering.graphics.squared", true);
+
     PointRenderer( AffineTransform worldToScreen, RendererContext rendererContext ) {
         this.worldToScreen = worldToScreen;
         this.rendererContext = rendererContext;
@@ -80,11 +84,14 @@ class PointRenderer {
 
         Graphic g = styling.graphic;
         Rectangle2D.Double rect = rendererContext.fillRenderer.getGraphicBounds( g, x, y, styling.uom );
+        int sizeUOM = g.size < 0 ? 6 : round( rendererContext.uomCalculator.considerUOM( g.size, styling.uom ) );
 
         if ( g.image == null && g.imageURL == null ) {
-            renderMark( g.mark, g.size < 0 ? 6
-                                          : round( rendererContext.uomCalculator.considerUOM( g.size, styling.uom ) ),
-                        styling.uom, rendererContext, rect.getMinX(), rect.getMinY(), g.rotation );
+            if ( squareSize ) {
+                renderMark( g.mark, sizeUOM, styling.uom, rendererContext, rect.getMinX(), rect.getMinY(), g.rotation );
+            } else {
+                renderNonSquareMark( g, sizeUOM, styling.uom, rendererContext, x, y );
+            }
             return;
         }
 
@@ -92,7 +99,10 @@ class PointRenderer {
 
         // try if it's an svg
         if ( img == null && g.imageURL != null ) {
-            img = rendererContext.svgRenderer.prepareSvg( rect, g );
+            img = rendererContext.svgRenderer.prepareSvg( g.imageURL, sizeUOM );
+            if ( img != null ) {
+                rect = rendererContext.fillRenderer.getImageBounds( img, g, x, y, styling.uom );
+            }
         }
 
         if ( img != null ) {
