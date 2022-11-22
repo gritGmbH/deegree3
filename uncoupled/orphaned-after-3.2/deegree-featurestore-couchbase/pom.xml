@@ -10,7 +10,7 @@
   </properties>
 
   <parent>
-    <groupId>org.deegree</groupId>
+    <groupId>de.grit.deegree</groupId>
     <artifactId>deegree-featurestores</artifactId>
     <version>3.2.0</version>
     <relativePath />
@@ -40,7 +40,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.deegree</groupId>
+      <groupId>de.grit.deegree</groupId>
       <artifactId>deegree-featurestore-sql</artifactId>
       <version>${project.version}</version>
     </dependency>

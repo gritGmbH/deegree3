@@ -6,7 +6,7 @@
   <description>Example configuration for deploying processes for printing maps via deegree WPS</description>
 
   <parent>
-    <groupId>org.deegree</groupId>
+    <groupId>de.grit.deegree</groupId>
     <artifactId>deegree-workspaces</artifactId>
     <version>3.4-RC3-SNAPSHOT</version>
   </parent>
@@ -26,12 +26,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.deegree</groupId>
+      <groupId>de.grit.deegree</groupId>
       <artifactId>deegree-processprovider-jrxml</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.deegree</groupId>
+      <groupId>de.grit.deegree</groupId>
       <artifactId>deegree-processprovider-style</artifactId>
       <version>${project.version}</version>
     </dependency>
