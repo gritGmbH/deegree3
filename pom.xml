@@ -1212,7 +1212,7 @@
         <version>${antlr.version}</version>
       </dependency>
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>org.deegree</groupId>
         <artifactId>junidecode</artifactId>
         <version>0.2</version>
       </dependency>
