@@ -9,12 +9,21 @@
   <description>Framework for OGC Web Service implementations and geospatial applications</description>
   <url>http://www.deegree.org/</url>
 
+  <!--
   <scm>
     <connection>scm:git:git@github.com:deegree/deegree3.git</connection>
     <developerConnection>scm:git:git@github.com:deegree/deegree3.git</developerConnection>
     <url>https://github.com/deegree/deegree3</url>
     <tag>HEAD</tag>
   </scm>
+  -->
+  <scm>
+    <connection>scm:git:git@git.werne.grit.de:grit/deegree3.git</connection>
+    <developerConnection>scm:git:git@git.werne.grit.de:grit/deegree3.git</developerConnection>
+    <url>http://git.werne.grit.de:grit/deegree3</url>
+    <tag>HEAD</tag>
+  </scm>
+
 
   <repositories>
     <repository>
@@ -31,6 +40,15 @@
 
   <distributionManagement>
     <repository>
+      <id>maven-apps-release-local</id>
+      <url>https://maven.werne.grit.de/artifactory/apps-release-local/</url>
+    </repository>
+    <snapshotRepository>
+      <id>maven-apps-snapshot-local</id>
+      <url>https://maven.werne.grit.de/artifactory/apps-snapshot-local/</url>
+    </snapshotRepository>
+    <!--
+    <repository>
       <id>deegree-releases</id>
       <url>https://repo.deegree.org/content/repositories/releases/</url>
     </repository>
@@ -38,6 +56,7 @@
       <id>deegree-snapshots</id>
       <url>https://repo.deegree.org/content/repositories/snapshots/</url>
     </snapshotRepository>
+    -->
     <site>
       <id>apidoc.deegree.org</id>
 <!--
@@ -261,6 +280,8 @@
           <preparationGoals>clean install</preparationGoals>
           <autoVersionSubmodules>true</autoVersionSubmodules>
           <arguments>-e</arguments>
+          <!-- local -->
+          <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
       <plugin>
