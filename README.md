@@ -79,6 +79,8 @@ This Branch includes, in difference to https://github.com/deegree/deegree3/tree/
   - gritGmbH:bugfix/last-font-symbol-unreachable
 - 1424 [Fix conversation of foot within unit of measure handling](https://github.com/deegree/deegree3/pull/1424)
   - gritGmbH:bugfix/unit-of-measure-foot
+- 1429 [Update Oracle driver to 19.9.0.0](https://github.com/deegree/deegree3/issues/1429)
+  - gritGmbH:enhancement/oracle-driver-update
 <!--
 //- 1425 [Update the documentation of deegree](https://github.com/deegree/deegree3/pull/1425)
 //  - lat-lon:updateDocs8440-8455
