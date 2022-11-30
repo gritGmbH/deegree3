@@ -146,7 +146,7 @@
 				<GraphicStroke>
 					<Graphic>
 						<Mark>
-							<OnlineResource xlink:href="./TestSymbol.ttf" />
+							<OnlineResource xlink:href="./testsymbol.ttf" />
 							<Format>ttf</Format>
 							<MarkIndex>3</MarkIndex>
 							<Fill>
