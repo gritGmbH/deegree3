@@ -4,7 +4,7 @@
   <groupId>de.grit.deegree</groupId>
   <artifactId>deegree</artifactId>
   <packaging>pom</packaging>
-  <version>3.5.0-SNAPSHOT</version>
+  <version>3.5.0.1-grit</version>
   <name>deegree</name>
   <description>Framework for OGC Web Service implementations and geospatial applications</description>
   <url>http://www.deegree.org/</url>
@@ -21,7 +21,7 @@
     <connection>scm:git:git@git.werne.grit.de:grit/deegree3.git</connection>
     <developerConnection>scm:git:git@git.werne.grit.de:grit/deegree3.git</developerConnection>
     <url>http://git.werne.grit.de:grit/deegree3</url>
-    <tag>HEAD</tag>
+    <tag>v3.5.0.1-grit</tag>
   </scm>
 
 
