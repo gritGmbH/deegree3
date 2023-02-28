@@ -108,6 +108,7 @@ import org.deegree.commons.xml.XMLAdapter;
 import org.deegree.commons.xml.stax.XMLStreamUtils;
 import org.deegree.cs.coordinatesystems.ICRS;
 import org.deegree.cs.refs.coordinatesystem.CRSRef;
+import org.deegree.feature.Feature;
 import org.deegree.feature.FeatureCollection;
 import org.deegree.feature.types.FeatureType;
 import org.deegree.featureinfo.FeatureInfoManager;
@@ -162,6 +163,7 @@ import org.deegree.services.wms.MapService;
 import org.deegree.services.wms.controller.capabilities.serialize.CapabilitiesManager;
 import org.deegree.services.wms.controller.exceptions.ExceptionsManager;
 import org.deegree.services.wms.controller.plugins.DefaultOutputFormatProvider;
+import org.deegree.services.wms.controller.plugins.FeatureInfoInterceptor;
 import org.deegree.services.wms.controller.plugins.OutputFormatProvider;
 import org.deegree.services.wms.utils.GetMapLimitChecker;
 import org.deegree.services.wms.utils.SupportedEncodingsParser;
@@ -221,6 +223,8 @@ public class WMSController extends AbstractOWS {
 
     private SupportedEncodings supportedEncodings;
 
+    protected FeatureInfoInterceptor gfiInterceptor;
+
     private boolean isStrict;
 
     public WMSController( ResourceMetadata<OWS> metadata, Workspace workspace, DeegreeWMS jaxbConfig ) {
@@ -231,6 +235,9 @@ public class WMSController extends AbstractOWS {
         ouputFormatProvider = ServiceLoader.load( OutputFormatProvider.class ) //
                                            .findFirst() //
                                            .orElseGet( DefaultOutputFormatProvider::new );
+        gfiInterceptor = ServiceLoader.load( FeatureInfoInterceptor.class ) //
+                                      .findFirst() //
+                                      .orElse( null );
         initOfferedVersions( jaxbConfig.getSupportedVersions() );
     }
 
@@ -907,10 +914,13 @@ public class WMSController extends AbstractOWS {
 
         String format = fi.getInfoFormat();
         LinkedList<String> headers = new LinkedList<String>();
-        Pair<FeatureCollection, LinkedList<String>> pair = new Pair<>( service.getFeatures( fi, headers ), headers );
-
-        FeatureCollection col = pair.first;
-        addHeaders( response, pair.second );
+        FeatureCollection col;
+        if ( gfiInterceptor != null ) {
+            col = gfiInterceptor.query(this, service, fi, queryLayers, headers);
+        } else {
+            col = service.getFeatures( fi, headers );
+        }
+        addHeaders( response, headers );
         format = format == null ? "application/vnd.ogc.gml" : format;
         response.setContentType( format );
         response.setCharacterEncoding( "UTF-8" );
