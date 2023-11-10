@@ -67,7 +67,6 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.TreeMap;
 import java.util.UUID;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.servlet.ServletException;
@@ -87,7 +86,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.dom.DOMSource;
-
 import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.soap.SOAP11Version;
@@ -100,7 +98,6 @@ import org.deegree.commons.ows.metadata.ServiceProvider;
 import org.deegree.commons.tom.ReferenceResolvingException;
 import org.deegree.commons.tom.ows.Version;
 import org.deegree.commons.utils.CollectionUtils;
-import org.deegree.commons.utils.Pair;
 import org.deegree.commons.utils.kvp.InvalidParameterValueException;
 import org.deegree.commons.xml.CommonNamespaces;
 import org.deegree.commons.xml.NamespaceBindings;
@@ -162,8 +159,9 @@ import org.deegree.services.metadata.provider.OWSMetadataProviderProvider;
 import org.deegree.services.wms.MapService;
 import org.deegree.services.wms.controller.capabilities.serialize.CapabilitiesManager;
 import org.deegree.services.wms.controller.exceptions.ExceptionsManager;
+import org.deegree.services.wms.controller.plugins.DefaultGetFeatureInfoProvider;
 import org.deegree.services.wms.controller.plugins.DefaultOutputFormatProvider;
-import org.deegree.services.wms.controller.plugins.FeatureInfoInterceptor;
+import org.deegree.services.wms.controller.plugins.GetFeatureInfoProvider;
 import org.deegree.services.wms.controller.plugins.OutputFormatProvider;
 import org.deegree.services.wms.utils.GetMapLimitChecker;
 import org.deegree.services.wms.utils.SupportedEncodingsParser;
@@ -212,6 +210,8 @@ public class WMSController extends AbstractOWS {
 
 	private OutputFormatProvider ouputFormatProvider;
 
+	private GetFeatureInfoProvider getFeatureInfoProvider;
+
 	private OWSMetadataProvider metadataProvider;
 
 	private DeegreeWMS conf;
@@ -221,8 +221,6 @@ public class WMSController extends AbstractOWS {
 	private final GetMapLimitChecker getMapLimitChecker = new GetMapLimitChecker();
 
 	private SupportedEncodings supportedEncodings;
-
-	protected FeatureInfoInterceptor gfiInterceptor;
 
 	private boolean isStrict;
 
@@ -234,9 +232,9 @@ public class WMSController extends AbstractOWS {
 		ouputFormatProvider = ServiceLoader.load(OutputFormatProvider.class) //
 			.findFirst() //
 			.orElseGet(DefaultOutputFormatProvider::new);
-		gfiInterceptor = ServiceLoader.load(FeatureInfoInterceptor.class) //
+		getFeatureInfoProvider = ServiceLoader.load(GetFeatureInfoProvider.class) //
 			.findFirst() //
-			.orElse(null);
+			.orElseGet(DefaultGetFeatureInfoProvider::new);
 		initOfferedVersions(jaxbConfig.getSupportedVersions());
 	}
 
@@ -938,13 +936,7 @@ public class WMSController extends AbstractOWS {
 
 		String format = fi.getInfoFormat();
 		LinkedList<String> headers = new LinkedList<String>();
-		FeatureCollection col;
-		if (gfiInterceptor != null) {
-			col = gfiInterceptor.query(this, service, fi, queryLayers, headers);
-		}
-		else {
-			col = service.getFeatures(fi, headers);
-		}
+		FeatureCollection col = getFeatureInfoProvider.query(this, service, fi, queryLayers, headers);
 		addHeaders(response, headers);
 		format = format == null ? "application/vnd.ogc.gml" : format;
 		response.setContentType(format);
