@@ -94,6 +94,7 @@ public class CsvGetFeatureHandler {
 		AppSchema schema = featureStore.getSchema();
 		QName featureTypeName = queries.get(0).getTypeNames()[0].getFeatureTypeName();
 		FeatureType featureType = schema.getFeatureType(featureTypeName);
+
 		CsvFeatureWriter csvStreamWriter = new CsvFeatureWriter(response.getWriter(), requestedCRS, featureType);
 		try {
 			for (Feature member : rs) {

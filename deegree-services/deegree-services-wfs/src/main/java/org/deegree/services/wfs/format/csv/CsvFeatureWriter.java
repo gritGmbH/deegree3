@@ -40,6 +40,7 @@ import static org.apache.commons.csv.CSVFormat.DEFAULT;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -165,9 +166,16 @@ public class CsvFeatureWriter {
 	}
 
 	private String[] createHeaders() {
-		List<String> headers = propertyNames.stream().map(name -> name.toString()).collect(Collectors.toList());
+
+		Set<String> headerShort = propertyNames.stream().map( QName::getLocalPart )
+												.collect( Collectors.toCollection( LinkedHashSet::new ));
+
+		List<String> headers = propertyNames.stream().map( QName::toString ).collect( Collectors.toList());
+
+
+
 		headers.add(CRS);
-		return headers.toArray(new String[headers.size()]);
+		return headers.toArray(new String[0]);
 	}
 
 	private String crsAsString() {

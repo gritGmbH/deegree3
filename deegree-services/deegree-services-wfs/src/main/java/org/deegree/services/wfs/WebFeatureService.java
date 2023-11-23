@@ -590,6 +590,8 @@ public class WebFeatureService extends AbstractOWS {
 				}
 				else if (formatDef instanceof org.deegree.services.jaxb.wfs.CsvFormat) {
 					format = new CsvFormat(this);
+					// encoding
+					// separator
 				}
 				else if (formatDef instanceof GeoJSONFormat) {
 					boolean allowOtherCrsThanWGS84 = ((GeoJSONFormat) formatDef).isAllowOtherCrsThanWGS84();
