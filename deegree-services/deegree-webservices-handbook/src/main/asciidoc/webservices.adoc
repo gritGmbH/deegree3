@@ -727,9 +727,10 @@ The _CsvFormat_ option has the following sub-options:
 |@quoteCharacter |0..1 |String |Single character to be used as delimiter in output. Defaults to comma (`,`).
 |@escape |0..1 |String |Single sign to be used as delimiter in output.
 |@delimiter |0..1 |String |Single sign to be used as escape character. Default to double quote (`"`)
-|@recordSeparator|0..1 |String |Text to be used between records. Defaults to carriage return with line feed (`\r\n`).
-|EnableGeometryExport|0..1 |Boolean |Defines if geometry columns should be included or not. Enabled by default.
-|ExtraColumns|0..1 |Complex |Defines if additional columns should be added to the output.
+|@instanceSeparator |0..1 |String |Text used when the property with multiple instances is joined. Defaults to the pipe sign with spaces around (` | `).
+|@recordSeparator |0..1 |String |Text to be used between records. Defaults to carriage return with line feed (`\r\n`).
+|EnableGeometryExport |0..1 |Boolean |Defines if geometry columns should be included or not. Enabled by default.
+|ExtraColumns |0..1 |Complex |Defines if additional columns should be added to the output.
 |MimeType |1..n |String |Mime types associated with this format configuration
 |=======================================================================
 
