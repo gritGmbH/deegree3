@@ -49,95 +49,94 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class implements a cached RasterDataContainer.
- * 
+ *
  * @author <a href="mailto:tonnhofer@lat-lon.de">Oliver Tonnhofer</a>
  * @author last edited by: $Author$
- * 
  * @version $Revision$, $Date$
  */
 public class CachedRasterDataContainer implements RasterDataContainer, RasterDataContainerProvider {
 
-    private final static Logger LOG = LoggerFactory.getLogger( CachedRasterDataContainer.class );
+	private final static Logger LOG = LoggerFactory.getLogger(CachedRasterDataContainer.class);
 
-    private RasterDataReader reader;
+	private RasterDataReader reader;
 
-    private String identifier;
+	private String identifier;
 
-    private static Cache cache;
+	private static Cache cache;
 
-    private final static String CACHENAME = "CachedRasterDataContainer";
+	private final static String CACHENAME = "CachedRasterDataContainer";
 
-    static {
-        try {
-            CacheManager manager = CacheManager.create();
-            manager.addCache( CACHENAME );
-            // TODO: make cachename configurable
-            // see ehcache.xml for CachedRasterDataContainer configuration
-            cache = manager.getCache( CACHENAME );
-        } catch ( Throwable e ) {
-            LOG.error( e.getLocalizedMessage(), e );
-        }
+	static {
+		try {
+			CacheManager manager = CacheManager.create();
+			manager.addCache(CACHENAME);
+			// TODO: make cachename configurable
+			// see ehcache.xml for CachedRasterDataContainer configuration
+			cache = manager.getCache(CACHENAME);
+		}
+		catch (Throwable e) {
+			LOG.error(e.getLocalizedMessage(), e);
+		}
 
-    }
+	}
 
-    /**
-     * Creates an empty RasterDataContainer that loads the data on first access.
-     */
-    public CachedRasterDataContainer() {
-        // empty constructor
-    }
+	/**
+	 * Creates an empty RasterDataContainer that loads the data on first access.
+	 */
+	public CachedRasterDataContainer() {
+		// empty constructor
+	}
 
-    /**
-     * Creates a RasterDataContainer that loads the data on first access.
-     * 
-     * @param reader
-     *            RasterReader for the raster source
-     */
-    public CachedRasterDataContainer( RasterDataReader reader ) {
-        setRasterDataReader( reader );
-    }
+	/**
+	 * Creates a RasterDataContainer that loads the data on first access.
+	 * @param reader RasterReader for the raster source
+	 */
+	public CachedRasterDataContainer(RasterDataReader reader) {
+		setRasterDataReader(reader);
+	}
 
-    public synchronized void setRasterDataReader( RasterDataReader reader ) {
-        // reader.close();
-        this.reader = reader;
-        this.identifier = UUID.randomUUID().toString();
-    }
+	public synchronized void setRasterDataReader(RasterDataReader reader) {
+		// reader.close();
+		this.reader = reader;
+		this.identifier = UUID.randomUUID().toString();
+	}
 
-    @Override
-    public synchronized RasterData getRasterData() {
-        // synchronized to prevent multiple reader.read()-calls when
-        RasterData raster;
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug( "accessing: " + this.toString() );
-        }
-        Element elem = cache.get( identifier );
-        if ( elem == null ) {
-            raster = reader.read();
-            elem = new Element( identifier, raster );
-            cache.put( elem );
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "cache miss: " + this.toString() + "#mem: " + cache.getMemoryStoreSize() );
-            }
-        } else {
-            raster = (RasterData) elem.getObjectValue();
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "cache hit: " + this.toString() );
-            }
-        }
-        return raster;
-    }
+	@Override
+	public synchronized RasterData getRasterData() {
+		// synchronized to prevent multiple reader.read()-calls when
+		RasterData raster;
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("accessing: " + this.toString());
+		}
+		Element elem = cache.get(identifier);
+		if (elem == null) {
+			raster = reader.read();
+			elem = new Element(identifier, raster);
+			cache.put(elem);
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("cache miss: " + this.toString() + "#mem: " + cache.getMemoryStoreSize());
+			}
+		}
+		else {
+			raster = (RasterData) elem.getObjectValue();
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("cache hit: " + this.toString());
+			}
+		}
+		return raster;
+	}
 
-    @Override
-    public RasterData getReadOnlyRasterData() {
-        return getRasterData().asReadOnly();
-    }
+	@Override
+	public RasterData getReadOnlyRasterData() {
+		return getRasterData().asReadOnly();
+	}
 
-    public RasterDataContainer getRasterDataContainer( LoadingPolicy type ) {
-        if ( type == LoadingPolicy.CACHED && cache != null ) {
-            // the service loader caches provider instances, so return a new instance
-            return new CachedRasterDataContainer();
-        }
-        return null;
-    }
+	public RasterDataContainer getRasterDataContainer(LoadingPolicy type) {
+		if (type == LoadingPolicy.CACHED && cache != null) {
+			// the service loader caches provider instances, so return a new instance
+			return new CachedRasterDataContainer();
+		}
+		return null;
+	}
 
 }

@@ -32,19 +32,20 @@ import org.deegree.commons.tom.sql.ParticleConverter;
 import org.deegree.feature.persistence.sql.rules.CompoundMapping;
 
 /**
- * Implementations are {@link ParticleConverter} that can be plugged into the maaping process via configuration.
- * 
- * This is an extension to {@link CustomParticleConverter} to allow a direct mapping between a {@link CompoundMapping}
- * without children to one or more database columns.
- * 
+ * Implementations are {@link ParticleConverter} that can be plugged into the maaping
+ * process via configuration.
+ *
+ * This is an extension to {@link CustomParticleConverter} to allow a direct mapping
+ * between a {@link CompoundMapping} without children to one or more database columns.
+ *
  * @author <a href="mailto:reichhelm@grit.de">Stephan Reichhelm</a>
  */
 public interface MultiParticleConverter extends CustomParticleConverter<TypedObjectNodeArray<TypedObjectNode>> {
 
-    /**
-     * The column name to be used for import
-     * 
-     * @return
-     */
-    public String getColumn();
+	/**
+	 * The column name to be used for import
+	 * @return
+	 */
+	public String getColumn();
+
 }

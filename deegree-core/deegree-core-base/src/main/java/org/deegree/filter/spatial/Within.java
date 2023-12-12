@@ -43,47 +43,46 @@ import org.deegree.geometry.Geometry;
 
 /**
  * TODO add documentation here
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider </a>
  * @author last edited by: $Author:$
- * 
  * @version $Revision:$, $Date:$
  */
 public class Within extends SpatialOperator {
 
-    private final Geometry geometry;
+	private final Geometry geometry;
 
-    public Within( Expression param1, Geometry param2 ) {
-        super( param1 );
-        this.geometry = param2;
-    }
+	public Within(Expression param1, Geometry param2) {
+		super(param1);
+		this.geometry = param2;
+	}
 
-    public <T> boolean evaluate( T obj, XPathEvaluator<T> xpathEvaluator )
-                            throws FilterEvaluationException {
-        for ( TypedObjectNode paramValue : propName.evaluate( obj, xpathEvaluator ) ) {
-            Geometry geom = checkGeometryOrNull( paramValue );
-            if ( geom != null ) {
-                Geometry transformedLiteral = getCompatibleGeometry( geom, geometry );
-                return geom.isWithin( transformedLiteral );
-            }
-        }
-        return false;
-    }
+	public <T> boolean evaluate(T obj, XPathEvaluator<T> xpathEvaluator) throws FilterEvaluationException {
+		for (TypedObjectNode paramValue : propName.evaluate(obj, xpathEvaluator)) {
+			Geometry geom = checkGeometryOrNull(paramValue);
+			if (geom != null) {
+				Geometry transformedLiteral = getCompatibleGeometry(geom, geometry);
+				return geom.isWithin(transformedLiteral);
+			}
+		}
+		return false;
+	}
 
-    @Override
-    public String toString( String indent ) {
-        String s = indent + "-Within\n";
-        s += indent + propName + "\n";
-        s += indent + geometry;
-        return s;
-    }
+	@Override
+	public String toString(String indent) {
+		String s = indent + "-Within\n";
+		s += indent + propName + "\n";
+		s += indent + geometry;
+		return s;
+	}
 
-    public Geometry getGeometry() {
-        return geometry;
-    }
+	public Geometry getGeometry() {
+		return geometry;
+	}
 
-    @Override
-    public Object[] getParams() {
-        return new Object[] { propName, geometry };
-    }
+	@Override
+	public Object[] getParams() {
+		return new Object[] { propName, geometry };
+	}
+
 }

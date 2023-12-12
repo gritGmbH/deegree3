@@ -48,99 +48,99 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Responsible for representing and evaluating the <code>Intersects</code> operator.
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider </a>
  * @author last edited by: $Author:$
- * 
  * @version $Revision:$, $Date:$
  */
 public class Intersects extends SpatialOperator {
 
-    private static final Logger LOG = LoggerFactory.getLogger( Intersects.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Intersects.class);
 
-    private final Geometry geometry;
+	private final Geometry geometry;
 
-    /**
-     * @param propName
-     *            may actually be <code>null</code> (deegree extension to cope with features that have only hidden
-     *            geometry props)
-     * @param geometry
-     */
-    public Intersects( Expression propName, Geometry geometry ) {
-        super( propName );
-        this.geometry = geometry;
-    }
+	/**
+	 * @param propName may actually be <code>null</code> (deegree extension to cope with
+	 * features that have only hidden geometry props)
+	 * @param geometry
+	 */
+	public Intersects(Expression propName, Geometry geometry) {
+		super(propName);
+		this.geometry = geometry;
+	}
 
-    @Override
-    public <T> boolean evaluate( T obj, XPathEvaluator<T> xpathEvaluator )
-                            throws FilterEvaluationException {
+	@Override
+	public <T> boolean evaluate(T obj, XPathEvaluator<T> xpathEvaluator) throws FilterEvaluationException {
 
-        Expression param1 = getParam1();
-        if ( param1 != null ) {
-            for ( TypedObjectNode paramValue : param1.evaluate( obj, xpathEvaluator ) ) {
-                Geometry param1Value = checkGeometryOrNull( paramValue );
-                if ( param1Value != null ) {
-                    Geometry transformedGeom = getCompatibleGeometry( param1Value, geometry );
-                    return transformedGeom.intersects( param1Value );
-                }
-            }
-        } else if ( obj instanceof Feature ) {
-            // handle the case where the property name is empty
-            Feature f = (Feature) obj;
-            boolean foundGeom = false;
-            for ( Property prop : f.getProperties() ) {
-                if ( prop.getValue() instanceof Geometry ) {
-                    foundGeom = true;
-                    Geometry geom = (Geometry) prop.getValue();
-                    Geometry transformedGeom = getCompatibleGeometry( geometry, geom );
-                    if ( transformedGeom.intersects( geometry ) ) {
-                        return true;
-                    }
-                }
-            }
-            if ( !foundGeom ) {
-                Envelope env = f.getEnvelope();
-                if ( env != null ) {
-                    Geometry g = getCompatibleGeometry( geometry, env );
-                    if ( g.intersects( geometry ) ) {
-                        return true;
-                    }
-                }
-            }
-            if ( f.getExtraProperties() != null ) {
-                for ( Property prop : f.getExtraProperties().getProperties() ) {
-                    if ( prop.getValue() instanceof Geometry ) {
-                        Geometry geom = (Geometry) prop.getValue();
-                        Geometry transformedGeom = getCompatibleGeometry( geometry, geom );
-                        if ( transformedGeom.intersects( geometry ) ) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } else {
-            LOG.warn( "Evaluating Intersects on non-Feature object and property name not specified." );
-        }
-        return false;
-    }
+		Expression param1 = getParam1();
+		if (param1 != null) {
+			for (TypedObjectNode paramValue : param1.evaluate(obj, xpathEvaluator)) {
+				Geometry param1Value = checkGeometryOrNull(paramValue);
+				if (param1Value != null) {
+					Geometry transformedGeom = getCompatibleGeometry(param1Value, geometry);
+					return transformedGeom.intersects(param1Value);
+				}
+			}
+		}
+		else if (obj instanceof Feature) {
+			// handle the case where the property name is empty
+			Feature f = (Feature) obj;
+			boolean foundGeom = false;
+			for (Property prop : f.getProperties()) {
+				if (prop.getValue() instanceof Geometry) {
+					foundGeom = true;
+					Geometry geom = (Geometry) prop.getValue();
+					Geometry transformedGeom = getCompatibleGeometry(geometry, geom);
+					if (transformedGeom.intersects(geometry)) {
+						return true;
+					}
+				}
+			}
+			if (!foundGeom) {
+				Envelope env = f.getEnvelope();
+				if (env != null) {
+					Geometry g = getCompatibleGeometry(geometry, env);
+					if (g.intersects(geometry)) {
+						return true;
+					}
+				}
+			}
+			if (f.getExtraProperties() != null) {
+				for (Property prop : f.getExtraProperties().getProperties()) {
+					if (prop.getValue() instanceof Geometry) {
+						Geometry geom = (Geometry) prop.getValue();
+						Geometry transformedGeom = getCompatibleGeometry(geometry, geom);
+						if (transformedGeom.intersects(geometry)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		else {
+			LOG.warn("Evaluating Intersects on non-Feature object and property name not specified.");
+		}
+		return false;
+	}
 
-    /**
-     * @return the geometry
-     */
-    public Geometry getGeometry() {
-        return geometry;
-    }
+	/**
+	 * @return the geometry
+	 */
+	public Geometry getGeometry() {
+		return geometry;
+	}
 
-    @Override
-    public String toString( String indent ) {
-        String s = indent + "-Intersects\n";
-        s += indent + propName + "\n";
-        s += indent + geometry;
-        return s;
-    }
+	@Override
+	public String toString(String indent) {
+		String s = indent + "-Intersects\n";
+		s += indent + propName + "\n";
+		s += indent + geometry;
+		return s;
+	}
 
-    @Override
-    public Object[] getParams() {
-        return new Object[] { propName, geometry };
-    }
+	@Override
+	public Object[] getParams() {
+		return new Object[] { propName, geometry };
+	}
+
 }

@@ -43,51 +43,50 @@ import org.deegree.geometry.Geometry;
 
 /**
  * TODO add documentation here
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider </a>
  * @author last edited by: $Author:$
- * 
  * @version $Revision:$, $Date:$
  */
 public class Overlaps extends SpatialOperator {
 
-    private final Geometry geometry;
+	private final Geometry geometry;
 
-    public Overlaps( Expression propName, Geometry geometry ) {
-        super( propName );
-        this.geometry = geometry;
-    }
+	public Overlaps(Expression propName, Geometry geometry) {
+		super(propName);
+		this.geometry = geometry;
+	}
 
-    @Override
-    public <T> boolean evaluate( T obj, XPathEvaluator<T> xpathEvaluator )
-                            throws FilterEvaluationException {
-        for ( TypedObjectNode paramValue : propName.evaluate( obj, xpathEvaluator ) ) {
-            Geometry geom = checkGeometryOrNull( paramValue );
-            if ( geom != null ) {
-                Geometry transformedLiteral = getCompatibleGeometry( geom, geometry );
-                return geom.overlaps( transformedLiteral );
-            }
-        }
-        return false;
-    }
+	@Override
+	public <T> boolean evaluate(T obj, XPathEvaluator<T> xpathEvaluator) throws FilterEvaluationException {
+		for (TypedObjectNode paramValue : propName.evaluate(obj, xpathEvaluator)) {
+			Geometry geom = checkGeometryOrNull(paramValue);
+			if (geom != null) {
+				Geometry transformedLiteral = getCompatibleGeometry(geom, geometry);
+				return geom.overlaps(transformedLiteral);
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @return the geometry
-     */
-    public Geometry getGeometry() {
-        return geometry;
-    }
+	/**
+	 * @return the geometry
+	 */
+	public Geometry getGeometry() {
+		return geometry;
+	}
 
-    @Override
-    public String toString( String indent ) {
-        String s = indent + "-Overlaps\n";
-        s += indent + propName + "\n";
-        s += indent + geometry;
-        return s;
-    }
+	@Override
+	public String toString(String indent) {
+		String s = indent + "-Overlaps\n";
+		s += indent + propName + "\n";
+		s += indent + geometry;
+		return s;
+	}
 
-    @Override
-    public Object[] getParams() {
-        return new Object[] { propName, geometry };
-    }
+	@Override
+	public Object[] getParams() {
+		return new Object[] { propName, geometry };
+	}
+
 }

@@ -55,41 +55,41 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Responsible for finding feature store resources.
- * 
+ *
  * @author <a href="mailto:schmitz@occamlabs.de">Andreas Schmitz</a>
  * @author last edited by: $Author: stranger $
- * 
  * @version $Revision: $, $Date: $
  */
 public class FeatureStoreManager extends DefaultResourceManager<FeatureStore> {
 
-    private static Logger LOG = LoggerFactory.getLogger( FeatureStoreManager.class );
+	private static Logger LOG = LoggerFactory.getLogger(FeatureStoreManager.class);
 
-    private static final String BBOX_CACHE_FILE = "bbox_cache.properties";
+	private static final String BBOX_CACHE_FILE = "bbox_cache.properties";
 
-    private BBoxPropertiesCache bboxCache;
+	private BBoxPropertiesCache bboxCache;
 
-    public FeatureStoreManager() {
-        super( new DefaultResourceManagerMetadata<FeatureStore>( FeatureStoreProvider.class, "feature stores",
-                                                                 "datasources/feature" ) );
-    }
+	public FeatureStoreManager() {
+		super(new DefaultResourceManagerMetadata<FeatureStore>(FeatureStoreProvider.class, "feature stores",
+				"datasources/feature"));
+	}
 
-    @Override
-    public void startup( Workspace workspace ) {
-        try {
-            if ( workspace instanceof DefaultWorkspace ) {
-                File dir = new File( ( (DefaultWorkspace) workspace ).getLocation(), getMetadata().getWorkspacePath() );
-                bboxCache = new BBoxPropertiesCache( new File( dir, BBOX_CACHE_FILE ) );
-            }
-            // else?
-        } catch ( IOException e ) {
-            LOG.error( "Unable to initialize global envelope cache: " + e.getMessage(), e );
-        }
-        super.startup( workspace );
-    }
+	@Override
+	public void startup(Workspace workspace) {
+		try {
+			if (workspace instanceof DefaultWorkspace) {
+				File dir = new File(((DefaultWorkspace) workspace).getLocation(), getMetadata().getWorkspacePath());
+				bboxCache = new BBoxPropertiesCache(new File(dir, BBOX_CACHE_FILE));
+			}
+			// else?
+		}
+		catch (IOException e) {
+			LOG.error("Unable to initialize global envelope cache: " + e.getMessage(), e);
+		}
+		super.startup(workspace);
+	}
 
-    public BBoxCache getBBoxCache() {
-        return bboxCache;
-    }
+	public BBoxCache getBBoxCache() {
+		return bboxCache;
+	}
 
 }

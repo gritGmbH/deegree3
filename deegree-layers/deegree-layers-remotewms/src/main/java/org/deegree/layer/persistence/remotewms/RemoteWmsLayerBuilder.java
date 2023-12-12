@@ -71,107 +71,106 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Builds remote wms layers from jaxb beans.
- * 
+ *
  * @author <a href="mailto:schmitz@occamlabs.de">Andreas Schmitz</a>
  * @author last edited by: $Author: stranger $
- * 
  * @version $Revision: $, $Date: $
  */
 class RemoteWmsLayerBuilder {
 
-    private static final Logger LOG = LoggerFactory.getLogger( RemoteWmsLayerBuilder.class );
+	private static final Logger LOG = LoggerFactory.getLogger(RemoteWmsLayerBuilder.class);
 
-    private WMSClient client;
+	private WMSClient client;
 
-    private RemoteWMSLayers cfg;
+	private RemoteWMSLayers cfg;
 
-    private ResourceMetadata<LayerStore> metadata;
+	private ResourceMetadata<LayerStore> metadata;
 
-    RemoteWmsLayerBuilder( WMSClient client, RemoteWMSLayers cfg, ResourceMetadata<LayerStore> metadata ) {
-        this.client = client;
-        this.cfg = cfg;
-        this.metadata = metadata;
-    }
+	RemoteWmsLayerBuilder(WMSClient client, RemoteWMSLayers cfg, ResourceMetadata<LayerStore> metadata) {
+		this.client = client;
+		this.cfg = cfg;
+		this.metadata = metadata;
+	}
 
-    Map<String, Layer> buildLayerMap() {
-        Map<String, LayerMetadata> configured = collectConfiguredLayers();
-        if ( configured.isEmpty() )
-            return parseAllRemoteLayers();
-        return collectConfiguredRemoteLayers( configured );
-    }
+	Map<String, Layer> buildLayerMap() {
+		Map<String, LayerMetadata> configured = collectConfiguredLayers();
+		if (configured.isEmpty())
+			return parseAllRemoteLayers();
+		return collectConfiguredRemoteLayers(configured);
+	}
 
-    private Map<String, Layer> parseAllRemoteLayers() {
-        Map<String, Layer> map = new LinkedHashMap<String, Layer>();
+	private Map<String, Layer> parseAllRemoteLayers() {
+		Map<String, Layer> map = new LinkedHashMap<String, Layer>();
 
-        RequestOptionsType opts = cfg.getRequestOptions();
-        List<LayerMetadata> layers = client.getLayerTree().flattenDepthFirst();
-        for ( LayerMetadata md : layers ) {
-            if ( md.getName() != null ) {
-                map.put( md.getName(), new RemoteWMSLayer( md.getName(), md, client, opts ) );
-            }
-        }
-        return map;
-    }
+		RequestOptionsType opts = cfg.getRequestOptions();
+		List<LayerMetadata> layers = client.getLayerTree().flattenDepthFirst();
+		for (LayerMetadata md : layers) {
+			if (md.getName() != null) {
+				map.put(md.getName(), new RemoteWMSLayer(md.getName(), md, client, opts));
+			}
+		}
+		return map;
+	}
 
-    private Map<String, Layer> collectConfiguredRemoteLayers( Map<String, LayerMetadata> configured ) {
-        Map<String, Layer> map = new LinkedHashMap<String, Layer>();
-        RequestOptionsType opts = cfg.getRequestOptions();
-        List<LayerMetadata> layers = client.getLayerTree().flattenDepthFirst();
-        for ( LayerMetadata md : layers ) {
-            String name = md.getName();
-            LayerMetadata confMd = configured.get( name );
-            if ( confMd != null ) {
-                confMd.merge( md );
-                confMd.setStyles( md.getStyles() );
-                confMd.setLegendStyles( md.getLegendStyles() );
-                map.put( confMd.getName(), new RemoteWMSLayer( name, confMd, client, opts ) );
-            }
-        }
-        return map;
-    }
+	private Map<String, Layer> collectConfiguredRemoteLayers(Map<String, LayerMetadata> configured) {
+		Map<String, Layer> map = new LinkedHashMap<String, Layer>();
+		RequestOptionsType opts = cfg.getRequestOptions();
+		List<LayerMetadata> layers = client.getLayerTree().flattenDepthFirst();
+		for (LayerMetadata md : layers) {
+			String name = md.getName();
+			LayerMetadata confMd = configured.get(name);
+			if (confMd != null) {
+				confMd.merge(md);
+				confMd.setStyles(md.getStyles());
+				confMd.setLegendStyles(md.getLegendStyles());
+				map.put(confMd.getName(), new RemoteWMSLayer(name, confMd, client, opts));
+			}
+		}
+		return map;
+	}
 
-    private Map<String, LayerMetadata> collectConfiguredLayers() {
-        Map<String, LayerMetadata> configured = new HashMap<String, LayerMetadata>();
-        if ( cfg.getLayer() != null ) {
-            for ( LayerType l : cfg.getLayer() ) {
-                if ( !client.hasLayer( l.getOriginalName() ) ) {
-                    LOG.warn( "Layer {} is not offered by the remote WMS.", l.getOriginalName() );
-                    continue;
-                }
-                String name = l.getName();
-                SpatialMetadata smd = SpatialMetadataConverter.fromJaxb( l.getEnvelope(), l.getCRS() );
-                Description desc = null;
-                if ( l.getDescription() != null ) {
-                    desc = DescriptionConverter.fromJaxb( l.getDescription().getTitle(),
-                                                          l.getDescription().getAbstract(),
-                                                          l.getDescription().getKeywords() );
-                }
+	private Map<String, LayerMetadata> collectConfiguredLayers() {
+		Map<String, LayerMetadata> configured = new HashMap<String, LayerMetadata>();
+		if (cfg.getLayer() != null) {
+			for (LayerType l : cfg.getLayer()) {
+				if (!client.hasLayer(l.getOriginalName())) {
+					LOG.warn("Layer {} is not offered by the remote WMS.", l.getOriginalName());
+					continue;
+				}
+				String name = l.getName();
+				SpatialMetadata smd = SpatialMetadataConverter.fromJaxb(l.getEnvelope(), l.getCRS());
+				Description desc = null;
+				if (l.getDescription() != null) {
+					desc = DescriptionConverter.fromJaxb(l.getDescription().getTitle(),
+							l.getDescription().getAbstract(), l.getDescription().getKeywords());
+				}
 
-                LayerMetadata md = new LayerMetadata( name, desc, smd );
-                ScaleDenominatorsType denoms = l.getScaleDenominators();
-                if ( denoms != null ) {
-                    md.setScaleDenominators( new DoublePair( denoms.getMin(), denoms.getMax() ) );
-                }
-                md.setMapOptions( ConfigUtils.parseLayerOptions( l.getLayerOptions() ) );
-                md.setXsltFile( parseXsltFile( md, l.getXSLTFile() ) );
-                configured.put( l.getOriginalName(), md );
-            }
-        }
-        return configured;
-    }
+				LayerMetadata md = new LayerMetadata(name, desc, smd);
+				ScaleDenominatorsType denoms = l.getScaleDenominators();
+				if (denoms != null) {
+					md.setScaleDenominators(new DoublePair(denoms.getMin(), denoms.getMax()));
+				}
+				md.setMapOptions(ConfigUtils.parseLayerOptions(l.getLayerOptions()));
+				md.setXsltFile(parseXsltFile(md, l.getXSLTFile()));
+				configured.put(l.getOriginalName(), md);
+			}
+		}
+		return configured;
+	}
 
-    private XsltFile parseXsltFile( LayerMetadata md, XSLTFile xsltFileConfig ) {
-        if(xsltFileConfig != null){
-            GMLVersion gmlVersion = GMLVersion.valueOf( xsltFileConfig.getTargetGmlVersion().value() );
-            String xslFile = xsltFileConfig.getValue();
-            URL xsltFileUrl = metadata.getLocation().resolveToUrl( xslFile );
-            if ( xsltFileUrl == null ) {
-                LOG.warn( "Could not resolve xslt file url {}.", xslFile );
-            } else {
-                return new XsltFile( xsltFileUrl, gmlVersion );
-            }
-        }
-        return null;
-    }
+	private XsltFile parseXsltFile(LayerMetadata md, XSLTFile xsltFileConfig) {
+		if (xsltFileConfig != null) {
+			GMLVersion gmlVersion = GMLVersion.valueOf(xsltFileConfig.getTargetGmlVersion().value());
+			String xslFile = xsltFileConfig.getValue();
+			URL xsltFileUrl = metadata.getLocation().resolveToUrl(xslFile);
+			if (xsltFileUrl == null) {
+				LOG.warn("Could not resolve xslt file url {}.", xslFile);
+			}
+			else {
+				return new XsltFile(xsltFileUrl, gmlVersion);
+			}
+		}
+		return null;
+	}
 
 }

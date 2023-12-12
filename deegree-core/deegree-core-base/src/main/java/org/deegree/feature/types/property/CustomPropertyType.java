@@ -45,30 +45,30 @@ import org.deegree.commons.tom.gml.property.PropertyType;
 
 /**
  * {@link PropertyType} that defines a property with a user-defined value type.
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider</a>
  * @author last edited by: $Author: schneider $
- * 
  * @version $Revision: $, $Date: $
  */
 public class CustomPropertyType extends AbstractPropertyType {
 
-    private XSComplexTypeDefinition xsdType;
+	private XSComplexTypeDefinition xsdType;
 
-    public CustomPropertyType( QName name, int minOccurs, int maxOccurs, XSElementDeclaration elDecl,
-                               List<PropertyType> substitutions ) {
-        super( name, minOccurs, maxOccurs, elDecl, substitutions );
-        this.xsdType = elDecl != null ? (XSComplexTypeDefinition) elDecl.getTypeDefinition() : null;
-    }
+	public CustomPropertyType(QName name, int minOccurs, int maxOccurs, XSElementDeclaration elDecl,
+			List<PropertyType> substitutions) {
+		super(name, minOccurs, maxOccurs, elDecl, substitutions);
+		this.xsdType = elDecl != null ? (XSComplexTypeDefinition) elDecl.getTypeDefinition() : null;
+	}
 
-    public XSComplexTypeDefinition getXSDValueType() {
-        return xsdType;
-    }
+	public XSComplexTypeDefinition getXSDValueType() {
+		return xsdType;
+	}
 
-    @Override
-    public String toString() {
-        String s = "- custom property type: '" + name + "', minOccurs=" + minOccurs + ", maxOccurs=" + maxOccurs
-                   + ", content xsd type: " + xsdType;
-        return s;
-    }
+	@Override
+	public String toString() {
+		String s = "- custom property type: '" + name + "', minOccurs=" + minOccurs + ", maxOccurs=" + maxOccurs
+				+ ", content xsd type: " + xsdType;
+		return s;
+	}
+
 }

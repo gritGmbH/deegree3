@@ -45,35 +45,35 @@ import org.deegree.sqldialect.filter.UnmappableException;
 
 /**
  * {@link PropertyNameMapper} for the {@link SQLFeatureStore}.
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider</a>
  * @author last edited by: $Author$
- * 
  * @version $Revision$, $Date$
  */
 public class SQLPropertyNameMapper implements PropertyNameMapper {
 
-    private final SQLFeatureStore fs;
+	private final SQLFeatureStore fs;
 
-    private final FeatureTypeMapping ftMapping;
+	private final FeatureTypeMapping ftMapping;
 
-    private final boolean handleStrict;
+	private final boolean handleStrict;
 
-    public SQLPropertyNameMapper( SQLFeatureStore fs, FeatureTypeMapping ftMapping, boolean handleStrict ) {
-        this.fs = fs;
-        this.ftMapping = ftMapping;
-        this.handleStrict = handleStrict;
-    }
+	public SQLPropertyNameMapper(SQLFeatureStore fs, FeatureTypeMapping ftMapping, boolean handleStrict) {
+		this.fs = fs;
+		this.ftMapping = ftMapping;
+		this.handleStrict = handleStrict;
+	}
 
-    @Override
-    public PropertyNameMapping getMapping( ValueReference propName, TableAliasManager aliasManager )
-                            throws FilterEvaluationException, UnmappableException {
-        return new MappedXPath( fs, ftMapping, propName, aliasManager, false, handleStrict ).getPropertyNameMapping();
-    }
+	@Override
+	public PropertyNameMapping getMapping(ValueReference propName, TableAliasManager aliasManager)
+			throws FilterEvaluationException, UnmappableException {
+		return new MappedXPath(fs, ftMapping, propName, aliasManager, false, handleStrict).getPropertyNameMapping();
+	}
 
-    @Override
-    public PropertyNameMapping getSpatialMapping( ValueReference propName, TableAliasManager aliasManager )
-                            throws FilterEvaluationException, UnmappableException {
-        return new MappedXPath( fs, ftMapping, propName, aliasManager, true, handleStrict ).getPropertyNameMapping();
-    }
+	@Override
+	public PropertyNameMapping getSpatialMapping(ValueReference propName, TableAliasManager aliasManager)
+			throws FilterEvaluationException, UnmappableException {
+		return new MappedXPath(fs, ftMapping, propName, aliasManager, true, handleStrict).getPropertyNameMapping();
+	}
+
 }

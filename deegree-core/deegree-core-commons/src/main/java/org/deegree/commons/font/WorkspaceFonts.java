@@ -50,64 +50,66 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WorkspaceFonts implements Initializable {
-    protected static final Set<String> PROCESSED_FILES = new HashSet<>();
 
-    private static final Logger LOG = LoggerFactory.getLogger( WorkspaceFonts.class );
+	protected static final Set<String> PROCESSED_FILES = new HashSet<>();
 
-    private static final String FONT_DIR = "fonts";
+	private static final Logger LOG = LoggerFactory.getLogger(WorkspaceFonts.class);
 
-    @Override
-    public void init( Workspace workspace ) {
-        LOG.info( "--------------------------------------------------------------------------------" );
-        LOG.info( "Fonts in workspace." );
-        LOG.info( "--------------------------------------------------------------------------------" );
-        if ( loadFontsFromWorkspace( workspace ) ) {
-            LOG.info( "Fonts successfully loaded from workspace." );
-            return;
-        }
-        LOG.info( "No Fonts to register" );
-    }
+	private static final String FONT_DIR = "fonts";
 
-    private boolean loadFontsFromWorkspace( final Workspace ws ) {
-        File fontDir = new File( ( (DefaultWorkspace) ws ).getLocation(), FONT_DIR );
-        if ( !fontDir.isDirectory() ) {
-            return false;
-        }
-        boolean loaded = false;
-        for ( File f : FileUtils.listFiles( fontDir, new String[] { "ttf" }, false ) ) {
-            loaded = true;
-            registerOnce( f );
-        }
-        return loaded;
-    }
+	@Override
+	public void init(Workspace workspace) {
+		LOG.info("--------------------------------------------------------------------------------");
+		LOG.info("Fonts in workspace.");
+		LOG.info("--------------------------------------------------------------------------------");
+		if (loadFontsFromWorkspace(workspace)) {
+			LOG.info("Fonts successfully loaded from workspace.");
+			return;
+		}
+		LOG.info("No Fonts to register");
+	}
 
-    /**
-     * Load font and register it in the local {@link GraphicsEnvironment}
-     *
-     * Note: If a file has already been processed, it wont be loaded or registered again
-     *
-     * @param fontFile
-     *                         font to be processed
-     */
-    static void registerOnce( File fontFile ) {
-        if ( fontFile == null ) {
-            return;
-        }
-        final String fileKey = fontFile.getAbsolutePath();
-        if ( PROCESSED_FILES.contains( fileKey ) ) {
-            // do not re-register fonts, as fonts can not be deregistered in GraphicsEnvironment
-            LOG.info( "Skip file '{}' because it was already processed.", fontFile.getName() );
-            return;
-        }
-        PROCESSED_FILES.add( fileKey );
-        try {
-            Font f = Font.createFont( Font.TRUETYPE_FONT, fontFile );
-            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont( f );
-            LOG.info( "Loaded Font: {} (face: {}, family: {}, file: {})", f.getName(), f.getFontName(), f.getFamily(),
-                      fontFile.getName() );
-        } catch ( Exception e ) {
-            LOG.warn( "Font '{}' could not be loaded: {}", e.getMessage() );
-            LOG.trace( "Exception", e );
-        }
-    }
+	private boolean loadFontsFromWorkspace(final Workspace ws) {
+		File fontDir = new File(((DefaultWorkspace) ws).getLocation(), FONT_DIR);
+		if (!fontDir.isDirectory()) {
+			return false;
+		}
+		boolean loaded = false;
+		for (File f : FileUtils.listFiles(fontDir, new String[] { "ttf" }, false)) {
+			loaded = true;
+			registerOnce(f);
+		}
+		return loaded;
+	}
+
+	/**
+	 * Load font and register it in the local {@link GraphicsEnvironment}
+	 *
+	 * Note: If a file has already been processed, it wont be loaded or registered again
+	 * @param fontFile font to be processed
+	 */
+	static void registerOnce(File fontFile) {
+		if (fontFile == null) {
+			return;
+		}
+		final String fileKey = fontFile.getAbsolutePath();
+		if (PROCESSED_FILES.contains(fileKey)) {
+			// do not re-register fonts, as fonts can not be deregistered in
+			// GraphicsEnvironment
+			LOG.info("Skip file '{}' because it was already processed.", fontFile.getName());
+			return;
+		}
+		PROCESSED_FILES.add(fileKey);
+		try {
+			Font f = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(f);
+			LOG.info("Loaded Font: {} (face: {}, family: {}, file: {})", f.getName(), f.getFontName(), f.getFamily(),
+					fontFile.getName());
+		}
+		catch (Exception e) {
+			LOG.warn("Font '{}' could not be loaded: {}", e.getMessage());
+			LOG.trace("Exception", e);
+		}
+	}
+
 }

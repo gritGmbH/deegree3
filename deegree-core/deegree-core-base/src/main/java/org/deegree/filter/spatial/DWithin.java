@@ -44,62 +44,61 @@ import org.deegree.geometry.Geometry;
 
 /**
  * If geometries are within the specified distance of one another.
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider </a>
  * @author last edited by: $Author:$
- * 
  * @version $Revision:$, $Date:$
  */
 public class DWithin extends SpatialOperator {
 
-    private final Geometry geometry;
+	private final Geometry geometry;
 
-    private final Measure distance;
+	private final Measure distance;
 
-    public DWithin( Expression propName, Geometry geometry, Measure distance ) {
-        super( propName );
-        this.geometry = geometry;
-        this.distance = distance;
-    }
+	public DWithin(Expression propName, Geometry geometry, Measure distance) {
+		super(propName);
+		this.geometry = geometry;
+		this.distance = distance;
+	}
 
-    @Override
-    public <T> boolean evaluate( T obj, XPathEvaluator<T> xpathEvaluator )
-                            throws FilterEvaluationException {
-        for ( TypedObjectNode param1Value : propName.evaluate( obj, xpathEvaluator ) ) {
-            Geometry geom = checkGeometryOrNull( param1Value );
-            if ( geom != null ) {
-                Geometry transformedLiteral = getCompatibleGeometry( geom, geometry );
-                // TODO what about the units of the distance when transforming?
-                return geom.isWithinDistance( transformedLiteral, distance );
-            }
-        }
-        return false;
-    }
+	@Override
+	public <T> boolean evaluate(T obj, XPathEvaluator<T> xpathEvaluator) throws FilterEvaluationException {
+		for (TypedObjectNode param1Value : propName.evaluate(obj, xpathEvaluator)) {
+			Geometry geom = checkGeometryOrNull(param1Value);
+			if (geom != null) {
+				Geometry transformedLiteral = getCompatibleGeometry(geom, geometry);
+				// TODO what about the units of the distance when transforming?
+				return geom.isWithinDistance(transformedLiteral, distance);
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @return the geometry
-     */
-    public Geometry getGeometry() {
-        return geometry;
-    }
+	/**
+	 * @return the geometry
+	 */
+	public Geometry getGeometry() {
+		return geometry;
+	}
 
-    /**
-     * @return the distance
-     */
-    public Measure getDistance() {
-        return distance;
-    }
+	/**
+	 * @return the distance
+	 */
+	public Measure getDistance() {
+		return distance;
+	}
 
-    public String toString( String indent ) {
-        String s = indent + "-DWithin\n";
-        s += indent + propName + "\n";
-        s += indent + geometry + "\n";
-        s += indent + distance;
-        return s;
-    }
+	public String toString(String indent) {
+		String s = indent + "-DWithin\n";
+		s += indent + propName + "\n";
+		s += indent + geometry + "\n";
+		s += indent + distance;
+		return s;
+	}
 
-    @Override
-    public Object[] getParams() {
-        return new Object[] { propName, geometry };
-    }
+	@Override
+	public Object[] getParams() {
+		return new Object[] { propName, geometry };
+	}
+
 }

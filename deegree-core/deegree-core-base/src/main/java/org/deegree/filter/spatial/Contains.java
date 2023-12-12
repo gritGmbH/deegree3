@@ -43,50 +43,49 @@ import org.deegree.geometry.Geometry;
 
 /**
  * If a geometry is spatially contained in an other geometry.
- * 
+ *
  * @author <a href="mailto:schneider@lat-lon.de">Markus Schneider </a>
  * @author last edited by: $Author:$
- * 
  * @version $Revision:$, $Date:$
  */
 public class Contains extends SpatialOperator {
 
-    private final Geometry geometry;
+	private final Geometry geometry;
 
-    public Contains( Expression param1, Geometry param2 ) {
-        super( param1 );
-        this.geometry = param2;
-    }
+	public Contains(Expression param1, Geometry param2) {
+		super(param1);
+		this.geometry = param2;
+	}
 
-    @Override
-    public <T> boolean evaluate( T obj, XPathEvaluator<T> xpathEvaluator )
-                            throws FilterEvaluationException {
-        for ( TypedObjectNode paramValue : propName.evaluate( obj, xpathEvaluator ) ) {
-            Geometry geom = checkGeometryOrNull( paramValue );
-            if ( geom != null ) {
-                Geometry transformedLiteral = getCompatibleGeometry( geom, geometry );
-                return geom.contains( transformedLiteral );
-            }
-        }
-        return false;
-    }
+	@Override
+	public <T> boolean evaluate(T obj, XPathEvaluator<T> xpathEvaluator) throws FilterEvaluationException {
+		for (TypedObjectNode paramValue : propName.evaluate(obj, xpathEvaluator)) {
+			Geometry geom = checkGeometryOrNull(paramValue);
+			if (geom != null) {
+				Geometry transformedLiteral = getCompatibleGeometry(geom, geometry);
+				return geom.contains(transformedLiteral);
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @return the geometry
-     */
-    public Geometry getGeometry() {
-        return geometry;
-    }
+	/**
+	 * @return the geometry
+	 */
+	public Geometry getGeometry() {
+		return geometry;
+	}
 
-    public String toString( String indent ) {
-        String s = indent + "-Contains\n";
-        s += indent + propName + "\n";
-        s += indent + geometry;
-        return s;
-    }
+	public String toString(String indent) {
+		String s = indent + "-Contains\n";
+		s += indent + propName + "\n";
+		s += indent + geometry;
+		return s;
+	}
 
-    @Override
-    public Object[] getParams() {
-        return new Object[] { propName, geometry };
-    }
+	@Override
+	public Object[] getParams() {
+		return new Object[] { propName, geometry };
+	}
+
 }

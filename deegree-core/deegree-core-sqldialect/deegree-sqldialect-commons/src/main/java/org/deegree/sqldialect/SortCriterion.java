@@ -5,21 +5,21 @@ package org.deegree.sqldialect;
  */
 public class SortCriterion {
 
-    private final String columneName;
+	private final String columneName;
 
-    private final boolean sortAscending;
+	private final boolean sortAscending;
 
-    public SortCriterion( String columneName, boolean sortAscending ) {
-        this.columneName = columneName;
-        this.sortAscending = sortAscending;
-    }
+	public SortCriterion(String columneName, boolean sortAscending) {
+		this.columneName = columneName;
+		this.sortAscending = sortAscending;
+	}
 
-    public String getColumneName() {
-        return columneName;
-    }
+	public String getColumneName() {
+		return columneName;
+	}
 
-    public boolean isSortAscending() {
-        return sortAscending;
-    }
+	public boolean isSortAscending() {
+		return sortAscending;
+	}
 
 }

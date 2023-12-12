@@ -102,321 +102,319 @@ import org.deegree.junit.XMLMemoryStreamWriter;
 import org.junit.Test;
 
 /**
- * Exports the features in the Philosophers example and validates them against the corresponding schema.
+ * Exports the features in the Philosophers example and validates them against the
+ * corresponding schema.
  *
  * @author <a href="mailto:ionita@lat-lon.de">Andrei Ionita</a>
  * @author last edited by: $Author: ionita $
- *
  * @version $Revision: $, $Date: $
  */
 public class GMLFeatureWriterTest {
 
-    private final String SOURCE_FILE = "../misc/feature/Philosopher_FeatureCollection.xml";
+	private final String SOURCE_FILE = "../misc/feature/Philosopher_FeatureCollection.xml";
 
-    private final String SCHEMA_LOCATION_ATTRIBUTE = "../misc/schema/Philosopher.xsd";
+	private final String SCHEMA_LOCATION_ATTRIBUTE = "../misc/schema/Philosopher.xsd";
 
-    private final String SCHEMA_LOCATION = "http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd http://www.deegree.org/app testdata/schema/Philosopher.xsd";
+	private final String SCHEMA_LOCATION = "http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd http://www.deegree.org/app testdata/schema/Philosopher.xsd";
 
-    @Test
-    public void testWriteGML2()
-                            throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
-                            ClassNotFoundException, InstantiationException, IllegalAccessException,
-                            XMLParsingException, UnknownCRSException, TransformationException {
-        String schemaURL = this.getClass().getResource( SCHEMA_LOCATION_ATTRIBUTE ).toString();
-        GMLAppSchemaReader xsdAdapter = new GMLAppSchemaReader( GML_31, null, schemaURL );
-        AppSchema schema = xsdAdapter.extractAppSchema();
+	@Test
+	public void testWriteGML2() throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
+			ClassNotFoundException, InstantiationException, IllegalAccessException, XMLParsingException,
+			UnknownCRSException, TransformationException {
+		String schemaURL = this.getClass().getResource(SCHEMA_LOCATION_ATTRIBUTE).toString();
+		GMLAppSchemaReader xsdAdapter = new GMLAppSchemaReader(GML_31, null, schemaURL);
+		AppSchema schema = xsdAdapter.extractAppSchema();
 
-        URL docURL = GMLFeatureWriterTest.class.getResource( SOURCE_FILE );
-        GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL );
-        gmlReader.setApplicationSchema( schema );
-        Feature feature = gmlReader.readFeature();
-        gmlReader.getIdContext().resolveLocalRefs();
+		URL docURL = GMLFeatureWriterTest.class.getResource(SOURCE_FILE);
+		GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader(GML_31, docURL);
+		gmlReader.setApplicationSchema(schema);
+		Feature feature = gmlReader.readFeature();
+		gmlReader.getIdContext().resolveLocalRefs();
 
-        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-        outputFactory.setProperty( "javax.xml.stream.isRepairingNamespaces", new Boolean( true ) );
-        XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        SchemaLocationXMLStreamWriter writer = new SchemaLocationXMLStreamWriter( memoryWriter.getXMLStreamWriter(),
-                                                                                  SCHEMA_LOCATION );
-        writer.setDefaultNamespace( "http://www.opengis.net/gml" );
-        writer.setPrefix( "app", "http://www.deegree.org/app" );
-        writer.setPrefix( "gml", "http://www.opengis.net/gml" );
-        writer.setPrefix( "ogc", "http://www.opengis.net/ogc" );
-        writer.setPrefix( "wfs", "http://www.opengis.net/wfs" );
-        writer.setPrefix( "xlink", "http://www.w3.org/1999/xlink" );
-        writer.setPrefix( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
-        GMLStreamWriter exporter = createGMLStreamWriter( GML_2, new IndentingXMLStreamWriter( writer ) );
-        exporter.write( feature );
-        writer.flush();
-        writer.close();
-        // XMLAssert.assertValidity( memoryWriter.getReader() );
-    }
+		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+		outputFactory.setProperty("javax.xml.stream.isRepairingNamespaces", new Boolean(true));
+		XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		SchemaLocationXMLStreamWriter writer = new SchemaLocationXMLStreamWriter(memoryWriter.getXMLStreamWriter(),
+				SCHEMA_LOCATION);
+		writer.setDefaultNamespace("http://www.opengis.net/gml");
+		writer.setPrefix("app", "http://www.deegree.org/app");
+		writer.setPrefix("gml", "http://www.opengis.net/gml");
+		writer.setPrefix("ogc", "http://www.opengis.net/ogc");
+		writer.setPrefix("wfs", "http://www.opengis.net/wfs");
+		writer.setPrefix("xlink", "http://www.w3.org/1999/xlink");
+		writer.setPrefix("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		GMLStreamWriter exporter = createGMLStreamWriter(GML_2, new IndentingXMLStreamWriter(writer));
+		exporter.write(feature);
+		writer.flush();
+		writer.close();
+		// XMLAssert.assertValidity( memoryWriter.getReader() );
+	}
 
-    @Test
-    public void testWriteGML31()
-                            throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
-                            ClassNotFoundException, InstantiationException, IllegalAccessException,
-                            XMLParsingException, UnknownCRSException, TransformationException {
-        String schemaURL = this.getClass().getResource( SCHEMA_LOCATION_ATTRIBUTE ).toString();
-        GMLAppSchemaReader xsdAdapter = new GMLAppSchemaReader( GML_31, null, schemaURL );
-        AppSchema schema = xsdAdapter.extractAppSchema();
+	@Test
+	public void testWriteGML31() throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
+			ClassNotFoundException, InstantiationException, IllegalAccessException, XMLParsingException,
+			UnknownCRSException, TransformationException {
+		String schemaURL = this.getClass().getResource(SCHEMA_LOCATION_ATTRIBUTE).toString();
+		GMLAppSchemaReader xsdAdapter = new GMLAppSchemaReader(GML_31, null, schemaURL);
+		AppSchema schema = xsdAdapter.extractAppSchema();
 
-        URL docURL = GMLFeatureWriterTest.class.getResource( SOURCE_FILE );
-        GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL );
-        gmlReader.setApplicationSchema( schema );
-        Feature feature = gmlReader.readFeature();
-        gmlReader.getIdContext().resolveLocalRefs();
+		URL docURL = GMLFeatureWriterTest.class.getResource(SOURCE_FILE);
+		GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader(GML_31, docURL);
+		gmlReader.setApplicationSchema(schema);
+		Feature feature = gmlReader.readFeature();
+		gmlReader.getIdContext().resolveLocalRefs();
 
-        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-        outputFactory.setProperty( "javax.xml.stream.isRepairingNamespaces", new Boolean( true ) );
-        XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        SchemaLocationXMLStreamWriter writer = new SchemaLocationXMLStreamWriter( memoryWriter.getXMLStreamWriter(),
-                                                                                  SCHEMA_LOCATION );
-        writer.setDefaultNamespace( "http://www.opengis.net/gml" );
-        writer.setPrefix( "app", "http://www.deegree.org/app" );
-        writer.setPrefix( "gml", "http://www.opengis.net/gml" );
-        writer.setPrefix( "ogc", "http://www.opengis.net/ogc" );
-        writer.setPrefix( "wfs", "http://www.opengis.net/wfs" );
-        writer.setPrefix( "xlink", "http://www.w3.org/1999/xlink" );
-        writer.setPrefix( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
-        GMLStreamWriter exporter = createGMLStreamWriter( GML_31, writer );
-        exporter.write( feature );
-        writer.flush();
-        writer.close();
-        // XMLAssert.assertValidity( memoryWriter.getReader() );
-        // System.out.println (memoryWriter.toString());
-    }
+		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+		outputFactory.setProperty("javax.xml.stream.isRepairingNamespaces", new Boolean(true));
+		XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		SchemaLocationXMLStreamWriter writer = new SchemaLocationXMLStreamWriter(memoryWriter.getXMLStreamWriter(),
+				SCHEMA_LOCATION);
+		writer.setDefaultNamespace("http://www.opengis.net/gml");
+		writer.setPrefix("app", "http://www.deegree.org/app");
+		writer.setPrefix("gml", "http://www.opengis.net/gml");
+		writer.setPrefix("ogc", "http://www.opengis.net/ogc");
+		writer.setPrefix("wfs", "http://www.opengis.net/wfs");
+		writer.setPrefix("xlink", "http://www.w3.org/1999/xlink");
+		writer.setPrefix("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		GMLStreamWriter exporter = createGMLStreamWriter(GML_31, writer);
+		exporter.write(feature);
+		writer.flush();
+		writer.close();
+		// XMLAssert.assertValidity( memoryWriter.getReader() );
+		// System.out.println (memoryWriter.toString());
+	}
 
-    // @Test
-    // public void testFI()
-    // throws XMLStreamException, ClassCastException, ClassNotFoundException,
-    // InstantiationException, IllegalAccessException, XMLParsingException, UnknownCRSException,
-    // FactoryConfigurationError, IOException, TransformationException {
-    //
-    // String schemaURL = this.getClass().getResource( SCHEMA_LOCATION_ATTRIBUTE ).toString();
-    // ApplicationSchemaXSDDecoder xsdAdapter = new ApplicationSchemaXSDDecoder( GML_31, null, schemaURL );
-    // ApplicationSchema schema = xsdAdapter.extractFeatureTypeSchema();
-    //
-    // URL docURL = GMLFeatureWriterTest.class.getResource( DIR + SOURCE_FILE );
-    // GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL );
-    // gmlReader.setApplicationSchema( schema );
-    // Feature feature = gmlReader.readFeature();
-    // gmlReader.getIdContext().resolveLocalRefs();
-    //
-    // OutputStream fiDocument = new FileOutputStream( "/tmp/out.fi" );
-    //
-    // // Create the StAX document serializer
-    // StAXDocumentSerializer staxDocumentSerializer = new StAXDocumentSerializer();
-    // staxDocumentSerializer.setOutputStream( fiDocument );
-    //
-    // SerializerVocabulary initialVocabulary = new SerializerVocabulary();
-    // initialVocabulary.setExternalVocabulary( "urn:external-vocabulary", BinaryVocabulary.serializerVoc, false );
-    // staxDocumentSerializer.setVocabulary( initialVocabulary );
-    //
-    // // Obtain XMLStreamWriter interface
-    // XMLStreamWriter writer = staxDocumentSerializer;
-    // writer.writeStartDocument();
-    //
-    // // writer.setDefaultNamespace( "http://www.opengis.net/gml" );
-    // writer.setPrefix( "app1", "http://www.deegree.org/app" );
-    // writer.setPrefix( "gml", "http://www.opengis.net/gml" );
-    // writer.setPrefix( "ogc", "http://www.opengis.net/ogc" );
-    // writer.setPrefix( "wfs", "http://www.opengis.net/wfs" );
-    // writer.setPrefix( "xlink", "http://www.w3.org/1999/xlink" );
-    // writer.setPrefix( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
-    //
-    // GMLFeatureWriter exporter = new GMLFeatureWriter( GML_31, writer, null, null, null, null, 0, -1, null, false);
-    // exporter.export( feature );
-    //
-    // writer.writeEndDocument();
-    //
-    // writer.close();
-    // }
+	// @Test
+	// public void testFI()
+	// throws XMLStreamException, ClassCastException, ClassNotFoundException,
+	// InstantiationException, IllegalAccessException, XMLParsingException,
+	// UnknownCRSException,
+	// FactoryConfigurationError, IOException, TransformationException {
+	//
+	// String schemaURL = this.getClass().getResource( SCHEMA_LOCATION_ATTRIBUTE
+	// ).toString();
+	// ApplicationSchemaXSDDecoder xsdAdapter = new ApplicationSchemaXSDDecoder( GML_31,
+	// null, schemaURL );
+	// ApplicationSchema schema = xsdAdapter.extractFeatureTypeSchema();
+	//
+	// URL docURL = GMLFeatureWriterTest.class.getResource( DIR + SOURCE_FILE );
+	// GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL
+	// );
+	// gmlReader.setApplicationSchema( schema );
+	// Feature feature = gmlReader.readFeature();
+	// gmlReader.getIdContext().resolveLocalRefs();
+	//
+	// OutputStream fiDocument = new FileOutputStream( "/tmp/out.fi" );
+	//
+	// // Create the StAX document serializer
+	// StAXDocumentSerializer staxDocumentSerializer = new StAXDocumentSerializer();
+	// staxDocumentSerializer.setOutputStream( fiDocument );
+	//
+	// SerializerVocabulary initialVocabulary = new SerializerVocabulary();
+	// initialVocabulary.setExternalVocabulary( "urn:external-vocabulary",
+	// BinaryVocabulary.serializerVoc, false );
+	// staxDocumentSerializer.setVocabulary( initialVocabulary );
+	//
+	// // Obtain XMLStreamWriter interface
+	// XMLStreamWriter writer = staxDocumentSerializer;
+	// writer.writeStartDocument();
+	//
+	// // writer.setDefaultNamespace( "http://www.opengis.net/gml" );
+	// writer.setPrefix( "app1", "http://www.deegree.org/app" );
+	// writer.setPrefix( "gml", "http://www.opengis.net/gml" );
+	// writer.setPrefix( "ogc", "http://www.opengis.net/ogc" );
+	// writer.setPrefix( "wfs", "http://www.opengis.net/wfs" );
+	// writer.setPrefix( "xlink", "http://www.w3.org/1999/xlink" );
+	// writer.setPrefix( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
+	//
+	// GMLFeatureWriter exporter = new GMLFeatureWriter( GML_31, writer, null, null, null,
+	// null, 0, -1, null, false);
+	// exporter.export( feature );
+	//
+	// writer.writeEndDocument();
+	//
+	// writer.close();
+	// }
 
-    @Test
-    public void testReexportDynamicallyParsedFeatureCollection()
-                            throws XMLStreamException, XMLParsingException, UnknownCRSException,
-                            TransformationException, FactoryConfigurationError, IOException {
+	@Test
+	public void testReexportDynamicallyParsedFeatureCollection() throws XMLStreamException, XMLParsingException,
+			UnknownCRSException, TransformationException, FactoryConfigurationError, IOException {
 
-        URL url = GMLFeatureWriterTest.class.getResource( "../misc/feature/test.gml" );
-        GMLStreamReader reader = GMLInputFactory.createGMLStreamReader( GML_2, url );
-        FeatureCollection fc = reader.readFeatureCollection();
-        XMLOutputFactory outfac = XMLOutputFactory.newInstance();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        XMLStreamWriter writer = outfac.createXMLStreamWriter( os );
-        GMLStreamWriter gmlwriter = GMLOutputFactory.createGMLStreamWriter( GMLVersion.GML_32, writer );
-        gmlwriter.setNamespaceBindings( reader.getAppSchema().getNamespaceBindings() );
-        gmlwriter.write( fc );
-        gmlwriter.close();
-    }
+		URL url = GMLFeatureWriterTest.class.getResource("../misc/feature/test.gml");
+		GMLStreamReader reader = GMLInputFactory.createGMLStreamReader(GML_2, url);
+		FeatureCollection fc = reader.readFeatureCollection();
+		XMLOutputFactory outfac = XMLOutputFactory.newInstance();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		XMLStreamWriter writer = outfac.createXMLStreamWriter(os);
+		GMLStreamWriter gmlwriter = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_32, writer);
+		gmlwriter.setNamespaceBindings(reader.getAppSchema().getNamespaceBindings());
+		gmlwriter.write(fc);
+		gmlwriter.close();
+	}
 
-    @Test
-    public void testExportWithoutBoundedBy()
-                            throws XMLStreamException, XMLParsingException, UnknownCRSException,
-                            TransformationException, FactoryConfigurationError, IOException, ClassCastException,
-                            ClassNotFoundException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testExportWithoutBoundedBy() throws XMLStreamException, XMLParsingException, UnknownCRSException,
+			TransformationException, FactoryConfigurationError, IOException, ClassCastException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 
-        URL docURL = GMLFeatureReaderTest.class.getResource( "../cite/feature/dataset-sf0.xml" );
-        GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL );
-        FeatureCollection fc = (FeatureCollection) gmlReader.readFeature();
-        gmlReader.getIdContext().resolveLocalRefs();
-        for ( Feature f : fc ) {
-            f.setEnvelope( null );
-        }
+		URL docURL = GMLFeatureReaderTest.class.getResource("../cite/feature/dataset-sf0.xml");
+		GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader(GML_31, docURL);
+		FeatureCollection fc = (FeatureCollection) gmlReader.readFeature();
+		gmlReader.getIdContext().resolveLocalRefs();
+		for (Feature f : fc) {
+			f.setEnvelope(null);
+		}
 
-        XMLOutputFactory outfac = XMLOutputFactory.newInstance();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        XMLStreamWriter writer = outfac.createXMLStreamWriter( os );
-        GMLStreamWriter gmlwriter = createGMLStreamWriter( GML_31, writer );
-        gmlwriter.setNamespaceBindings( gmlReader.getAppSchema().getNamespaceBindings() );
-        gmlwriter.write( fc );
-        gmlwriter.close();
+		XMLOutputFactory outfac = XMLOutputFactory.newInstance();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		XMLStreamWriter writer = outfac.createXMLStreamWriter(os);
+		GMLStreamWriter gmlwriter = createGMLStreamWriter(GML_31, writer);
+		gmlwriter.setNamespaceBindings(gmlReader.getAppSchema().getNamespaceBindings());
+		gmlwriter.write(fc);
+		gmlwriter.close();
 
-        XMLAdapter writtenDoc = new XMLAdapter( new ByteArrayInputStream( os.toByteArray() ), null );
-        NamespaceBindings nsContext = new NamespaceBindings();
-        nsContext.addNamespace( "gml", GML_31.getNamespace() );
-        XPath xpath = new XPath( "gml:featureMember/*/gml:boundedBy", nsContext );
-        List<OMElement> boundedBys = writtenDoc.getElements( writtenDoc.getRootElement(), xpath );
-        assertEquals( 0, boundedBys.size() );
-    }
+		XMLAdapter writtenDoc = new XMLAdapter(new ByteArrayInputStream(os.toByteArray()), null);
+		NamespaceBindings nsContext = new NamespaceBindings();
+		nsContext.addNamespace("gml", GML_31.getNamespace());
+		XPath xpath = new XPath("gml:featureMember/*/gml:boundedBy", nsContext);
+		List<OMElement> boundedBys = writtenDoc.getElements(writtenDoc.getRootElement(), xpath);
+		assertEquals(0, boundedBys.size());
+	}
 
-    @Test
-    public void testExportWithBoundedBy()
-                            throws XMLStreamException, XMLParsingException, UnknownCRSException,
-                            TransformationException, FactoryConfigurationError, IOException, ClassCastException,
-                            ClassNotFoundException, InstantiationException, IllegalAccessException {
+	@Test
+	public void testExportWithBoundedBy() throws XMLStreamException, XMLParsingException, UnknownCRSException,
+			TransformationException, FactoryConfigurationError, IOException, ClassCastException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 
-        URL docURL = GMLFeatureReaderTest.class.getResource( "../cite/feature/dataset-sf0.xml" );
-        GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader( GML_31, docURL );
-        FeatureCollection fc = (FeatureCollection) gmlReader.readFeature();
-        gmlReader.getIdContext().resolveLocalRefs();
-        for ( Feature f : fc ) {
-            f.setEnvelope( null );
-        }
+		URL docURL = GMLFeatureReaderTest.class.getResource("../cite/feature/dataset-sf0.xml");
+		GMLStreamReader gmlReader = GMLInputFactory.createGMLStreamReader(GML_31, docURL);
+		FeatureCollection fc = (FeatureCollection) gmlReader.readFeature();
+		gmlReader.getIdContext().resolveLocalRefs();
+		for (Feature f : fc) {
+			f.setEnvelope(null);
+		}
 
-        XMLOutputFactory outfac = XMLOutputFactory.newInstance();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        XMLStreamWriter writer = outfac.createXMLStreamWriter( os );
-        GMLStreamWriter gmlwriter = createGMLStreamWriter( GML_31, writer );
-        gmlwriter.setNamespaceBindings( gmlReader.getAppSchema().getNamespaceBindings() );
-        gmlwriter.setGenerateBoundedByForFeatures( true );
-        gmlwriter.write( fc );
-        gmlwriter.close();
+		XMLOutputFactory outfac = XMLOutputFactory.newInstance();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		XMLStreamWriter writer = outfac.createXMLStreamWriter(os);
+		GMLStreamWriter gmlwriter = createGMLStreamWriter(GML_31, writer);
+		gmlwriter.setNamespaceBindings(gmlReader.getAppSchema().getNamespaceBindings());
+		gmlwriter.setGenerateBoundedByForFeatures(true);
+		gmlwriter.write(fc);
+		gmlwriter.close();
 
-        XMLAdapter writtenDoc = new XMLAdapter( new ByteArrayInputStream( os.toByteArray() ), null );
-        NamespaceBindings nsContext = new NamespaceBindings();
-        nsContext.addNamespace( "gml", GML_31.getNamespace() );
-        XPath xpath = new XPath( "gml:featureMember/*/gml:boundedBy", nsContext );
-        List<OMElement> boundedBys = writtenDoc.getElements( writtenDoc.getRootElement(), xpath );
-        assertEquals( 15, boundedBys.size() );
-    }
+		XMLAdapter writtenDoc = new XMLAdapter(new ByteArrayInputStream(os.toByteArray()), null);
+		NamespaceBindings nsContext = new NamespaceBindings();
+		nsContext.addNamespace("gml", GML_31.getNamespace());
+		XPath xpath = new XPath("gml:featureMember/*/gml:boundedBy", nsContext);
+		List<OMElement> boundedBys = writtenDoc.getElements(writtenDoc.getRootElement(), xpath);
+		assertEquals(15, boundedBys.size());
+	}
 
-    @Test
-    public void testAIXM51RouteSegmentWithUrnXlink()
-                            throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
-                            XMLParsingException, UnknownCRSException, ReferenceResolvingException,
-                            TransformationException {
+	@Test
+	public void testAIXM51RouteSegmentWithUrnXlink()
+			throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException, XMLParsingException,
+			UnknownCRSException, ReferenceResolvingException, TransformationException {
 
-        URL docURL = GMLFeatureReaderTest.class.getResource( "../aixm/feature/AIXM51_RouteSegment.gml" );
-        GMLStreamReader gmlReader = createGMLStreamReader( GML_32, docURL );
-        Feature f = gmlReader.readFeature();
+		URL docURL = GMLFeatureReaderTest.class.getResource("../aixm/feature/AIXM51_RouteSegment.gml");
+		GMLStreamReader gmlReader = createGMLStreamReader(GML_32, docURL);
+		Feature f = gmlReader.readFeature();
 
-        XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        XMLStreamWriter writer = new IndentingXMLStreamWriter( memoryWriter.getXMLStreamWriter() );
-        GMLStreamWriter gmlwriter = createGMLStreamWriter( GML_32, writer );
-        gmlwriter.setNamespaceBindings( gmlReader.getAppSchema().getNamespaceBindings() );
-        gmlwriter.write( f );
-        gmlwriter.close();
+		XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		XMLStreamWriter writer = new IndentingXMLStreamWriter(memoryWriter.getXMLStreamWriter());
+		GMLStreamWriter gmlwriter = createGMLStreamWriter(GML_32, writer);
+		gmlwriter.setNamespaceBindings(gmlReader.getAppSchema().getNamespaceBindings());
+		gmlwriter.write(f);
+		gmlwriter.close();
 
-        URL schemaUrl = GMLFeatureReaderTest.class.getResource( "../aixm/schema/AIXM_Features.xsd" );
-        XMLAssert.assertValidity( memoryWriter.getReader(), schemaUrl.toString() );
-    }
+		URL schemaUrl = GMLFeatureReaderTest.class.getResource("../aixm/schema/AIXM_Features.xsd");
+		XMLAssert.assertValidity(memoryWriter.getReader(), schemaUrl.toString());
+	}
 
-    @Test
-    public void testAIXM51RouteSegmentTimeSliceProjection1()
-                            throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
-                            XMLParsingException, UnknownCRSException, ReferenceResolvingException,
-                            TransformationException {
+	@Test
+	public void testAIXM51RouteSegmentTimeSliceProjection1()
+			throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException, XMLParsingException,
+			UnknownCRSException, ReferenceResolvingException, TransformationException {
 
-        URL docURL = GMLFeatureReaderTest.class.getResource( "../aixm/feature/AIXM51_RouteSegment.gml" );
-        GMLStreamReader gmlReader = createGMLStreamReader( GML_32, docURL );
-        Feature f = gmlReader.readFeature();
+		URL docURL = GMLFeatureReaderTest.class.getResource("../aixm/feature/AIXM51_RouteSegment.gml");
+		GMLStreamReader gmlReader = createGMLStreamReader(GML_32, docURL);
+		Feature f = gmlReader.readFeature();
 
-        NamespaceBindings nsBindings = new NamespaceBindings();
-        nsBindings.addNamespace( "gml", GML3_2_NS );
-        ValueReference validTimeRef = new ValueReference( "gml:validTime/gml:TimePeriod/gml:beginPosition", nsBindings );
-        Literal<PrimitiveValue> literal = new Literal<PrimitiveValue>( "2010-01-01T00:00:00.000" );
-        PropertyIsEqualTo comp = new PropertyIsEqualTo( validTimeRef, literal, false, ALL );
-        Filter timeSliceFilter = new OperatorFilter( comp );
+		NamespaceBindings nsBindings = new NamespaceBindings();
+		nsBindings.addNamespace("gml", GML3_2_NS);
+		ValueReference validTimeRef = new ValueReference("gml:validTime/gml:TimePeriod/gml:beginPosition", nsBindings);
+		Literal<PrimitiveValue> literal = new Literal<PrimitiveValue>("2010-01-01T00:00:00.000");
+		PropertyIsEqualTo comp = new PropertyIsEqualTo(validTimeRef, literal, false, ALL);
+		Filter timeSliceFilter = new OperatorFilter(comp);
 
-        XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        XMLStreamWriter writer = new IndentingXMLStreamWriter( memoryWriter.getXMLStreamWriter() );
-        GMLStreamWriter gmlwriter = createGMLStreamWriter( GML_32, writer );
-        gmlwriter.setNamespaceBindings( gmlReader.getAppSchema().getNamespaceBindings() );
-        Map<QName, List<ProjectionClause>> projections = new HashMap<>();
-        projections.put( f.getName(), Collections.singletonList( new TimeSliceProjection( timeSliceFilter ) ) );
-        gmlwriter.setProjections( projections );
-        gmlwriter.write( f );
-        gmlwriter.close();
+		XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		XMLStreamWriter writer = new IndentingXMLStreamWriter(memoryWriter.getXMLStreamWriter());
+		GMLStreamWriter gmlwriter = createGMLStreamWriter(GML_32, writer);
+		gmlwriter.setNamespaceBindings(gmlReader.getAppSchema().getNamespaceBindings());
+		Map<QName, List<ProjectionClause>> projections = new HashMap<>();
+		projections.put(f.getName(), Collections.singletonList(new TimeSliceProjection(timeSliceFilter)));
+		gmlwriter.setProjections(projections);
+		gmlwriter.write(f);
+		gmlwriter.close();
 
-        URL schemaUrl = GMLFeatureReaderTest.class.getResource( "../aixm/schema/AIXM_Features.xsd" );
-        XMLAssert.assertValidity( memoryWriter.getReader(), schemaUrl.toString() );
+		URL schemaUrl = GMLFeatureReaderTest.class.getResource("../aixm/schema/AIXM_Features.xsd");
+		XMLAssert.assertValidity(memoryWriter.getReader(), schemaUrl.toString());
 
-        assertFalse( memoryWriter.toString().contains( "rsts206" ) );
-        assertTrue( memoryWriter.toString().contains( "rsts207" ) );
-    }
+		assertFalse(memoryWriter.toString().contains("rsts206"));
+		assertTrue(memoryWriter.toString().contains("rsts207"));
+	}
 
-    @Test
-    public void testAIXM51RouteSegmentTimeSliceProjection2()
-                            throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException,
-                            XMLParsingException, UnknownCRSException, ReferenceResolvingException,
-                            TransformationException {
+	@Test
+	public void testAIXM51RouteSegmentTimeSliceProjection2()
+			throws XMLStreamException, FactoryConfigurationError, IOException, ClassCastException, XMLParsingException,
+			UnknownCRSException, ReferenceResolvingException, TransformationException {
 
-        URL docURL = GMLFeatureReaderTest.class.getResource( "../aixm/feature/AIXM51_RouteSegment.gml" );
-        GMLStreamReader gmlReader = createGMLStreamReader( GML_32, docURL );
-        Feature f = gmlReader.readFeature();
+		URL docURL = GMLFeatureReaderTest.class.getResource("../aixm/feature/AIXM51_RouteSegment.gml");
+		GMLStreamReader gmlReader = createGMLStreamReader(GML_32, docURL);
+		Feature f = gmlReader.readFeature();
 
-        NamespaceBindings nsBindings = new NamespaceBindings();
-        nsBindings.addNamespace( "gml", GML3_2_NS );
-        ValueReference validTimeRef = new ValueReference( "gml:validTime/gml:TimePeriod/gml:beginPosition", nsBindings );
-        Literal<PrimitiveValue> literal = new Literal<PrimitiveValue>( "2009-01-01T00:00:00.000" );
-        PropertyIsEqualTo comp = new PropertyIsEqualTo( validTimeRef, literal, false, ALL );
-        Filter timeSliceFilter = new OperatorFilter( comp );
+		NamespaceBindings nsBindings = new NamespaceBindings();
+		nsBindings.addNamespace("gml", GML3_2_NS);
+		ValueReference validTimeRef = new ValueReference("gml:validTime/gml:TimePeriod/gml:beginPosition", nsBindings);
+		Literal<PrimitiveValue> literal = new Literal<PrimitiveValue>("2009-01-01T00:00:00.000");
+		PropertyIsEqualTo comp = new PropertyIsEqualTo(validTimeRef, literal, false, ALL);
+		Filter timeSliceFilter = new OperatorFilter(comp);
 
-        XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        XMLStreamWriter writer = new IndentingXMLStreamWriter( memoryWriter.getXMLStreamWriter() );
-        GMLStreamWriter gmlwriter = createGMLStreamWriter( GML_32, writer );
-        gmlwriter.setNamespaceBindings( gmlReader.getAppSchema().getNamespaceBindings() );
-        Map<QName, List<ProjectionClause>> projections = new HashMap<>();
-        projections.put( f.getName(), Collections.singletonList( new TimeSliceProjection( timeSliceFilter ) ) );
-        gmlwriter.setProjections( projections );
-        gmlwriter.write( f );
-        gmlwriter.close();
+		XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		XMLStreamWriter writer = new IndentingXMLStreamWriter(memoryWriter.getXMLStreamWriter());
+		GMLStreamWriter gmlwriter = createGMLStreamWriter(GML_32, writer);
+		gmlwriter.setNamespaceBindings(gmlReader.getAppSchema().getNamespaceBindings());
+		Map<QName, List<ProjectionClause>> projections = new HashMap<>();
+		projections.put(f.getName(), Collections.singletonList(new TimeSliceProjection(timeSliceFilter)));
+		gmlwriter.setProjections(projections);
+		gmlwriter.write(f);
+		gmlwriter.close();
 
-        URL schemaUrl = GMLFeatureReaderTest.class.getResource( "../aixm/schema/AIXM_Features.xsd" );
-        XMLAssert.assertValidity( memoryWriter.getReader(), schemaUrl.toString() );
+		URL schemaUrl = GMLFeatureReaderTest.class.getResource("../aixm/schema/AIXM_Features.xsd");
+		XMLAssert.assertValidity(memoryWriter.getReader(), schemaUrl.toString());
 
-        assertTrue( memoryWriter.toString().contains( "rsts206" ) );
-        assertFalse( memoryWriter.toString().contains( "rsts207" ) );
-    }
-    
-    @Test
-    public void testDecimalPropertyEncodedFaithfully()
-                            throws XMLStreamException, UnknownCRSException, TransformationException {
-        final String formattedInputValue = "0.00000009";
-        final XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-        outputFactory.setProperty( "javax.xml.stream.isRepairingNamespaces", new Boolean( true ) );
-        final XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
-        final XMLStreamWriter writer = memoryWriter.getXMLStreamWriter();
-        final GMLStreamWriter exporter = createGMLStreamWriter( GML_2, writer );
-        final GMLFeatureWriter featureWriter = exporter.getFeatureWriter();
-        final PropertyType decimalPt = new SimplePropertyType( new QName( "property" ), 1, 1, DECIMAL, null, null );
-        final PrimitiveType pt = new PrimitiveType( DECIMAL );
-        final TypedObjectNode value = new PrimitiveValue( formattedInputValue, pt );
-        final Property prop = new GenericProperty( decimalPt, value );
-        featureWriter.export( prop );
-        writer.flush();
-        writer.close();
-        assertEquals( "<property>0.00000009</property>\n", memoryWriter.toString() );
-    }
+		assertTrue(memoryWriter.toString().contains("rsts206"));
+		assertFalse(memoryWriter.toString().contains("rsts207"));
+	}
+
+	@Test
+	public void testDecimalPropertyEncodedFaithfully()
+			throws XMLStreamException, UnknownCRSException, TransformationException {
+		final String formattedInputValue = "0.00000009";
+		final XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+		outputFactory.setProperty("javax.xml.stream.isRepairingNamespaces", new Boolean(true));
+		final XMLMemoryStreamWriter memoryWriter = new XMLMemoryStreamWriter();
+		final XMLStreamWriter writer = memoryWriter.getXMLStreamWriter();
+		final GMLStreamWriter exporter = createGMLStreamWriter(GML_2, writer);
+		final GMLFeatureWriter featureWriter = exporter.getFeatureWriter();
+		final PropertyType decimalPt = new SimplePropertyType(new QName("property"), 1, 1, DECIMAL, null, null);
+		final PrimitiveType pt = new PrimitiveType(DECIMAL);
+		final TypedObjectNode value = new PrimitiveValue(formattedInputValue, pt);
+		final Property prop = new GenericProperty(decimalPt, value);
+		featureWriter.export(prop);
+		writer.flush();
+		writer.close();
+		assertEquals("<property>0.00000009</property>\n", memoryWriter.toString());
+	}
 
 }

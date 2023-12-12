@@ -44,9 +44,7 @@ import org.deegree.services.wms.controller.WMSController;
 
 public interface FeatureInfoInterceptor {
 
-    FeatureCollection query( WMSController wmsController, MapService service, GetFeatureInfo fi, List<String> layers,
-                             List<String> queryLayers )
-                            throws
-                            OWSException,
-                            IOException;
+	FeatureCollection query(WMSController wmsController, MapService service, GetFeatureInfo fi, List<String> layers,
+			List<String> queryLayers) throws OWSException, IOException;
+
 }
