@@ -71,7 +71,8 @@ public class CsvFormatConfig {
 	private final ColumnHeaders columnHeaders;
 
 	CsvFormatConfig(Boolean exportGeometry, Charset encoding, Character quoteCharacter, Character escape,
-			Character delimiter, String recordSeparator, ColumnHeaders columnHeaders, String columnGMLIdentifier, String columnCRS) {
+			Character delimiter, String recordSeparator, ColumnHeaders columnHeaders, String columnGMLIdentifier,
+			String columnCRS) {
 		this.exportGeometry = exportGeometry;
 		this.encoding = encoding;
 		this.quoteCharacter = quoteCharacter;
@@ -180,7 +181,7 @@ public class CsvFormatConfig {
 			return this;
 		}
 
-		public Builder setColumnHeaders( ColumnHeaders columnHeaders ) {
+		public Builder setColumnHeaders(ColumnHeaders columnHeaders) {
 			this.columnHeaders = columnHeaders;
 			return this;
 		}

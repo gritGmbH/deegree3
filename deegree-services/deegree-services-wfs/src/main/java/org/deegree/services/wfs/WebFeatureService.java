@@ -669,7 +669,7 @@ public class WebFeatureService extends AbstractOWS {
 		builder.setQuoteCharacter(csvConfig.getQuoteCharacter());
 		builder.setEscape(csvConfig.getEscape());
 		builder.setRecordSeparator(csvConfig.getRecordSeparator());
-		builder.setColumnHeaders( CsvFormatConfig.ColumnHeaders.valueOf( csvConfig.getColumnHeaders().name() ) );
+		builder.setColumnHeaders(CsvFormatConfig.ColumnHeaders.valueOf(csvConfig.getColumnHeaders().name()));
 
 		if (csvConfig.getExtraColumns() != null) {
 			builder.setColumnIdentifier(csvConfig.getExtraColumns().getIdentifier());
