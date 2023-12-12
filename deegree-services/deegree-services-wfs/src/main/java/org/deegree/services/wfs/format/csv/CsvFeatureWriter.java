@@ -122,7 +122,7 @@ public class CsvFeatureWriter {
 			this.columnCRS = config.getColumnCRS().orElse(null);
 			this.columnHeaders = config.getColumnHeaders().orElse(CsvFormatConfig.ColumnHeaders.AUTO);
 			this.exportGeometries = config.getExportGeometry().orElse(Boolean.TRUE);
-			this.propertyInstanceSeparator = config.getInstanceSeparator().orElse( "" );
+			this.propertyInstanceSeparator = config.getInstanceSeparator().orElse("");
 
 			this.propertyNames = findPropertyNamesToOutput(featureType);
 			this.csvPrinter = new CSVPrinter(writer,

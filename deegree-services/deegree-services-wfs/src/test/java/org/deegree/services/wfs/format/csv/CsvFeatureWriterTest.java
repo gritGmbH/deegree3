@@ -198,7 +198,7 @@ public class CsvFeatureWriterTest {
 
 		// check custom instance separator
 		assertThat(headerColumns, hasItem("app:subject"));
-		assertThat(record.get(headerColumns.indexOf( "app:subject" )), is("capital * economy * labour"));
+		assertThat(record.get(headerColumns.indexOf("app:subject")), is("capital * economy * labour"));
 	}
 
 }
