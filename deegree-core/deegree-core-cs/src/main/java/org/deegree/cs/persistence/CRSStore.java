@@ -71,8 +71,8 @@ public interface CRSStore {
 	 *            end point of the transformation (chain).
 	 *
 	 *
-	@return the {@link Transformation} Object or <code>null</code> if no such Object
-	 * was found.
+	@return the {@link Transformation} Object or <code>null</code> if no such Object was
+	 * found.
 	 * @throws CRSConfigurationException if the implementation was confronted by an
 	 * exception and could not deliver the requested Object. This exception should not be
 	 * thrown no Transformation was found, in this case <code>null</code> should be
@@ -88,8 +88,8 @@ public interface CRSStore {
 	 *            the id of the transformation
 	 *
 	 *
-	@return the {@link Transformation} Object or <code>null</code> if no such Object
-	 * was found.
+	@return the {@link Transformation} Object or <code>null</code> if no such Object was
+	 * found.
 	 * @throws CRSConfigurationException if the implementation was confronted by an
 	 * exception and could not deliver the requested Object. This exception should not be
 	 * thrown no Transformation was found, in this case <code>null</code> should be

@@ -555,8 +555,8 @@ public class RasterCache {
 	 * @param rasterId the id of the raster if
 	 * <code>null<code> no raster cache file will be created.
 	 *
-	@return the raster created from the cache or <code>null</code> if no cache file
-	 * with given id was found.
+	@return the raster created from the cache or <code>null</code> if no cache file with
+	 * given id was found.
 	 */
 	public SimpleRaster createFromCache(RasterReader reader, String rasterId) {
 		// rb: todo what about the CRS from RasterIOOptions
