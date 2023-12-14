@@ -70,7 +70,6 @@ import static org.deegree.services.wfs.ReferenceResolvingMode.CHECK_ALL;
 import static org.deegree.services.wfs.ReferenceResolvingMode.CHECK_INTERNALLY;
 import static org.deegree.services.wfs.ReferenceResolvingMode.SKIP_ALL;
 
-import jakarta.xml.bind.JAXBElement;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -93,6 +92,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
