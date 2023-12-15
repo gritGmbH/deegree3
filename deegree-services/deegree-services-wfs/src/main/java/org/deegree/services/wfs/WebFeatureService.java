@@ -205,6 +205,7 @@ import org.deegree.services.ows.OWS100ExceptionReportSerializer;
 import org.deegree.services.ows.OWS110ExceptionReportSerializer;
 import org.deegree.services.ows.PreOWSExceptionReportSerializer;
 import org.deegree.services.wfs.format.Format;
+import org.deegree.services.wfs.format.csv.CsvFeatureWriter;
 import org.deegree.services.wfs.format.csv.CsvFormat;
 import org.deegree.services.wfs.format.csv.CsvFormatConfig;
 import org.deegree.services.wfs.format.geojson.GeoJsonFormat;
@@ -674,6 +675,9 @@ public class WebFeatureService extends AbstractOWS {
 		if (csvConfig.getExtraColumns() != null) {
 			builder.setColumnIdentifier(csvConfig.getExtraColumns().getIdentifier());
 			builder.setColumnCRS(csvConfig.getExtraColumns().getCoordinateReferenceSystem());
+		}
+		else {
+			builder.setColumnCRS(CsvFeatureWriter.DEFAULT_COLUMN_NAME_CRS);
 		}
 		return builder.build();
 	}

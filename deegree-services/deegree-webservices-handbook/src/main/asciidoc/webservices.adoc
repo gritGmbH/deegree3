@@ -749,7 +749,7 @@ The _ExtraColumns_ option has the following sub-options:
 [width="100%",cols="24%,11%,7%,58%",options="header",]
 |=======================================================================
 |Identifier |0..1 |String |Name of the column to output the GML identifier. An empty value will omit this column, which is the default.
-|CoordinateReferenceSystem |0..1 |String |Name of the column to output the coordinate reference system name. Defaults to `CRS`.
+|CoordinateReferenceSystem |0..1 |String |Name of the column to output the coordinate reference system name. Defaults to `CRS` if _ExtraColumns_ is not set.
 |=======================================================================
 
 *Example for CSV output format*
