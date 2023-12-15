@@ -46,7 +46,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +57,6 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-
 import org.deegree.commons.utils.io.StreamBufferStore;
 import org.deegree.commons.xml.CommonNamespaces;
 import org.deegree.commons.xml.schema.SchemaValidationEvent;
@@ -318,6 +316,11 @@ public class HttpResponseBuffer extends HttpServletResponseWrapper {
 				throw new IOException(e);
 			}
 		}
+		if (printWriter != null) {
+			// NOTE flush on printWriter is required and flush() could trigger an error
+			// state if already closed. checkError() flushes stream if not closed
+			printWriter.checkError();
+		}
 		if (buffer != null) {
 			try {
 				buffer.flush();
@@ -362,7 +365,7 @@ public class HttpResponseBuffer extends HttpServletResponseWrapper {
 	 * This is a ServletOutputStream that uses our internal ByteArrayOutputStream to
 	 * buffer all data.
 	 */
-	private static class BufferedServletOutputStream extends ServletOutputStream {
+	static class BufferedServletOutputStream extends ServletOutputStream {
 
 		private final OutputStream buffer;
 
