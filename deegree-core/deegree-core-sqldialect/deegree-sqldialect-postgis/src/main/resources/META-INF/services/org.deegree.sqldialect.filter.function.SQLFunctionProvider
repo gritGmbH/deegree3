@@ -1,1 +1,2 @@
 org.deegree.sqldialect.postgis.function.PostGISArea
+org.deegree.sqldialect.postgis.function.PostGISGeometryType
