@@ -127,7 +127,7 @@ public class Java2DRendererTest extends AbstractSimilarityTest {
 				"/com/mpobjects/jasperreports/fonts/liberation/LiberationSans-Regular.ttf")) {
 			try (InputStream is = Java2DRendererTest.class.getResourceAsStream(fontName)) {
 				Font f = Font.createFont(Font.TRUETYPE_FONT, is);
-				LOG.warn("Loaded font with Name {} Font Name: {} Family Name: {}", f.getName(), f.getFontName(),
+				LOG.info("Loaded font with Name {} Font Name: {} Family Name: {}", f.getName(), f.getFontName(),
 						f.getFontName());
 				ge.registerFont(f);
 			}
